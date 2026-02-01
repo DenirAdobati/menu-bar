@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beautrì - Menu</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+            },
+            colors: {
+              anthracite: '#333333',
+              'apple-gray': '#F5F5F7',
+            },
+            borderRadius: {
+              'apple': '3rem',
+            }
+          },
+        },
+      }
+    </script>
+    <style>
+      body {
+        background-color: #ffffff;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+    </style>
+</head>
+<body class="min-h-screen bg-white text-anthracite selection:bg-gray-200">
+    <div class="max-w-xl mx-auto px-6 py-12 md:py-20">
+        
+        <!-- Header -->
+        <header class="flex flex-col items-center mb-16 text-center space-y-4">
+            <div class="w-20 h-20 bg-gray-900 rounded-[1.5rem] flex items-center justify-center mb-4 shadow-xl">
+                <span class="text-white font-bold text-3xl font-serif italic">B</span>
+            </div>
+            <h1 className="text-4xl font-bold tracking-tight text-gray-900">Beautrì</h1>
+            <div class="flex items-center gap-2 text-gray-500">
+                <i data-lucide="sparkles" class="w-4 h-4"></i>
+                <p class="text-lg font-light tracking-wide">Un momento di relax tutto per te</p>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="space-y-10">
+
+            <!-- Caffetteria -->
+            <div class="w-full">
+                <div class="flex items-center gap-3 mb-4 pl-4">
+                    <i data-lucide="coffee" class="w-6 h-6 text-gray-900 stroke-[1.5]"></i>
+                    <h2 class="text-2xl font-semibold text-anthracite tracking-tight">Caffetteria</h2>
+                </div>
+                <div class="bg-apple-gray rounded-apple p-8 shadow-[0_2px_20px_rgba(0,0,0,0.02)] transition-transform duration-500 hover:scale-[1.01]">
+                    <div class="flex flex-col">
+                        <!-- Item -->
+                        <div class="flex flex-col">
+                            <div class="flex justify-between items-center py-4 pr-2">
+                                <div class="flex flex-col">
+                                    <span class="text-lg font-medium text-anthracite tracking-tight">Caffè Espresso</span>
+                                    <span class="text-sm text-gray-500 mt-0.5 font-light">Corto, Lungo o Americano</span>
+                                </div>
+                            </div>
+                            <div class="h-[1px] bg-gray-200 w-full"></div>
+                        </div>
+                        <!-- Item -->
+                        <div class="flex flex-col">
+                            <div class="flex justify-between items-center py-4 pr-2">
+                                <div class="flex flex-col">
+                                    <span class="text-lg font-medium text-anthracite tracking-tight">Macchiato Freddo</span>
+                                    <span class="text-sm text-gray-500 mt-0.5 font-light">Schiuma di latte fredda vellutata</span>
+                                </div>
+                            </div>
+                            <div class="h-[1px] bg-gray-200 w-full"></div>
+                        </div>
+                        <!-- Item -->
+                        <div class="flex flex-col">
+                            <div class="flex justify-between items-center py-4 pr-2">
+                                <div class="flex flex-col">
+                                    <span class="text-lg font-medium text-anthracite tracking-tight">Caffè alla Nutella</span>
+                                    <span class="text-sm text-gray-500 mt-0.5 font-light">Goloso e avvolgente</span>
+                                </div>
+                                <span class="text-xs font-semibold bg-white text-gray-500 px-3 py-1 rounded-full shadow-sm">Must Try</span>
+                            </div>
+                            <!-- Last item, no border needed but keeping structure consistent implies we can omit it if desired, but Apple style lists usually don't have bottom border on last element. Leaving it out. -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mondo Tè -->
+            <div class="w-full">
+                <div class="flex items-center gap-3 mb-4 pl-4">
+                    <i data-lucide="leaf" class="w-6 h-6 text-gray-900 stroke-[1.5]"></i>
+                    <h2 class="text-2xl font-semibold text-anthracite tracking-tight">Mondo Tè</h2>
+                </div>
+                <div class="bg-apple-gray rounded-apple p-8 shadow-[0_2px_20px_rgba(0,0,0,0.02)] transition-transform duration-500 hover:scale-[1.01]">
+                    <div class="flex flex-col">
+                        <div class="flex flex-col">
+                            <div class="flex justify-between items-center py-4 pr-2">
+                                <div class="flex flex-col">
+                                    <span class="text-lg font-medium text-anthracite tracking-tight">Tè Bianco</span>
+                                    <span class="text-sm text-gray-500 mt-0.5 font-light">Aromatizzato alla Cannella</span>
+                                </div>
+                            </div>
+                            <div class="h-[1px] bg-gray-200 w-full"></div>
+                        </div>
+                        <div class="flex flex-col">
+                            <div class="flex justify-between items-center py-4 pr-2">
+                                <div class="flex flex-col">
+                                    <span class="text-lg font-medium text-anthracite tracking-tight">Tè Verde</span>
+                                    <span class="text-sm text-gray-500 mt-0.5 font-light">Fresco al Limone</span>
+                                </div>
+                            </div>
+                            <div class="h-[1px] bg-gray-200 w-full"></div>
+                        </div>
+                        <div class="flex flex-col">
+                            <div class="flex justify-between items-center py-4 pr-2">
+                                <div class="flex flex-col">
+                                    <span class="text-lg font-medium text-anthracite tracking-tight">Tè Nero</span>
+                                    <span class="text-sm text-gray-500 mt-0.5 font-light">Classico, Cannella o Cardamomo</span>
+                                </div>
+                            </div>
+                            <div class="h-[1px] bg-gray-200 w-full"></div>
+                        </div>
+                        <div class="flex flex-col">
+                            <div class="flex justify-between items-center py-4 pr-2">
+                                <div class="flex flex-col">
+                                    <span class="text-lg font-medium text-anthracite tracking-tight">Tè Rosso</span>
+                                    <span class="text-sm text-gray-500 mt-0.5 font-light">Ibisco e Kiwi, ricco di vitamine</span>
+                                </div>
+                            </div>
+                            <div class="h-[1px] bg-gray-200 w-full"></div>
+                        </div>
+                        <div class="flex flex-col">
+                            <div class="flex justify-between items-center py-4 pr-2">
+                                <div class="flex flex-col">
+                                    <span class="text-lg font-medium text-anthracite tracking-tight">Tè Ecologico</span>
+                                    <span class="text-sm text-gray-500 mt-0.5 font-light">Zenzero e Cannella</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tisane & Infusi -->
+            <div class="w-full">
+                <div class="flex items-center gap-3 mb-4 pl-4">
+                    <i data-lucide="droplets" class="w-6 h-6 text-gray-900 stroke-[1.5]"></i>
+                    <h2 class="text-2xl font-semibold text-anthracite tracking-tight">Tisane & Infusi</h2>
+                </div>
+                <div class="bg-apple-gray rounded-apple p-8 shadow-[0_2px_20px_rgba(0,0,0,0.02)] transition-transform duration-500 hover:scale-[1.01]">
+                    <!-- Subcategory: Le Funzionali -->
+                    <h3 class="text-sm uppercase tracking-widest text-gray-400 font-semibold mb-2 ml-1">Le Funzionali</h3>
+                    <div class="flex flex-col">
+                        <div class="flex flex-col">
+                            <div class="flex justify-between items-center py-4 pr-2">
+                                <div class="flex flex-col">
+                                    <span class="text-lg font-medium text-anthracite tracking-tight">Depurativa</span>
+                                    <span class="text-sm text-gray-500 mt-0.5 font-light">Detox corpo e mente</span>
+                                </div>
+                            </div>
+                            <div class="h-[1px] bg-gray-200 w-full"></div>
+                        </div>
+                        <div class="flex flex-col">
+                            <div class="flex justify-between items-center py-4 pr-2">
+                                <div class="flex flex-col">
+                                    <span class="text-lg font-medium text-anthracite tracking-tight">Rilassante</span>
+                                    <span class="text-sm text-gray-500 mt-0.5 font-light">Per un momento di pace</span>
+                                </div>
+                            </div>
+                            <div class="h-[1px] bg-gray-200 w-full"></div>
+                        </div>
+                        <div class="flex flex-col">
+                            <div class="flex justify-between items-center py-4 pr-2">
+                                <div class="flex flex-col">
+                                    <span class="text-lg font-medium text-anthracite tracking-tight">Digestiva</span>
+                                    <span class="text-sm text-gray-500 mt-0.5 font-light">Leggerezza dopo i pasti</span>
+                                </div>
+                            </div>
+                            <div class="h-[1px] bg-gray-200 w-full"></div>
+                        </div>
+                        <div class="flex flex-col">
+                            <div class="flex justify-between items-center py-4 pr-2">
+                                <div class="flex flex-col">
+                                    <span class="text-lg font-medium text-anthracite tracking-tight">Drenante</span>
+                                    <span class="text-sm text-gray-500 mt-0.5 font-light">Benessere naturale</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Subcategory: I Fruttati -->
+                    <h3 class="text-sm uppercase tracking-widest text-gray-400 font-semibold mt-10 mb-2 ml-1">I Fruttati</h3>
+                    <div class="flex flex-col">
+                        <div class="flex flex-col">
+                            <div class="flex justify-between items-center py-4 pr-2">
+                                <div class="flex flex-col">
+                                    <span class="text-lg font-medium text-anthracite tracking-tight">Tè Brownie</span>
+                                    <span class="text-sm text-gray-500 mt-0.5 font-light">Note di cioccolato</span>
+                                </div>
+                            </div>
+                            <div class="h-[1px] bg-gray-200 w-full"></div>
+                        </div>
+                        <div class="flex flex-col">
+                            <div class="flex justify-between items-center py-4 pr-2">
+                                <div class="flex flex-col">
+                                    <span class="text-lg font-medium text-anthracite tracking-tight">Esotico</span>
+                                    <span class="text-sm text-gray-500 mt-0.5 font-light">Mix tropicale</span>
+                                </div>
+                            </div>
+                            <div class="h-[1px] bg-gray-200 w-full"></div>
+                        </div>
+                        <div class="flex flex-col">
+                            <div class="flex justify-between items-center py-4 pr-2">
+                                <div class="flex flex-col">
+                                    <span class="text-lg font-medium text-anthracite tracking-tight">Summer Dream</span>
+                                    <span class="text-sm text-gray-500 mt-0.5 font-light">Dolcezza al Mango</span>
+                                </div>
+                            </div>
+                            <div class="h-[1px] bg-gray-200 w-full"></div>
+                        </div>
+                        <div class="flex flex-col">
+                            <div class="flex justify-between items-center py-4 pr-2">
+                                <div class="flex flex-col">
+                                    <span class="text-lg font-medium text-anthracite tracking-tight">Frutti di Bosco</span>
+                                    <span class="text-sm text-gray-500 mt-0.5 font-light">Intenso e profumato</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Un tocco di dolcezza -->
+            <div class="w-full">
+                <div class="flex items-center gap-3 mb-4 pl-4">
+                    <i data-lucide="candy" class="w-6 h-6 text-gray-900 stroke-[1.5]"></i>
+                    <h2 class="text-2xl font-semibold text-anthracite tracking-tight">Un tocco di dolcezza</h2>
+                </div>
+                <div class="bg-apple-gray rounded-apple p-8 shadow-[0_2px_20px_rgba(0,0,0,0.02)] transition-transform duration-500 hover:scale-[1.01]">
+                    <div class="flex flex-col">
+                        <div class="flex flex-col">
+                            <div class="flex justify-between items-center py-4 pr-2">
+                                <div class="flex flex-col">
+                                    <span class="text-lg font-medium text-anthracite tracking-tight">Zucchero di Canna</span>
+                                    <span class="text-sm text-gray-500 mt-0.5 font-light">Integrale grezzo</span>
+                                </div>
+                            </div>
+                            <div class="h-[1px] bg-gray-200 w-full"></div>
+                        </div>
+                        <div class="flex flex-col">
+                            <div class="flex justify-between items-center py-4 pr-2">
+                                <div class="flex flex-col">
+                                    <span class="text-lg font-medium text-anthracite tracking-tight">Zucchero Bianco</span>
+                                    <span class="text-sm text-gray-500 mt-0.5 font-light">Classico raffinato</span>
+                                </div>
+                            </div>
+                            <div class="h-[1px] bg-gray-200 w-full"></div>
+                        </div>
+                        <div class="flex flex-col">
+                            <div class="flex justify-between items-center py-4 pr-2">
+                                <div class="flex flex-col">
+                                    <span class="text-lg font-medium text-anthracite tracking-tight">Miele d’Acacia</span>
+                                    <span class="text-sm text-gray-500 mt-0.5 font-light">Naturale e delicato</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="mt-20 text-center text-gray-300 pb-10">
+            <p class="text-xs font-light">© 2024 Beautrì. All rights reserved.</p>
+        </footer>
+
+    </div>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
