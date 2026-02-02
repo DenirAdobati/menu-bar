@@ -206,26 +206,55 @@
                 const header = document.getElementById('sticky-header');
                 const subtitle = document.getElementById('header-subtitle');
                 
+                // Header style logic
                 if (this.state.scrolled) {
                     header.classList.remove('bg-transparent', 'pt-8', 'pb-4');
                     header.classList.add('bg-white/95', 'backdrop-blur-md', 'shadow-sm', 'pt-4', 'pb-2');
-                    subtitle.classList.add('opacity-0');
-                    setTimeout(() => subtitle.classList.add('hidden'), 300);
                 } else {
                     header.classList.add('bg-transparent', 'pt-8', 'pb-4');
                     header.classList.remove('bg-white/95', 'backdrop-blur-md', 'shadow-sm', 'pt-4', 'pb-2');
-                    subtitle.classList.remove('hidden');
-                    setTimeout(() => subtitle.classList.remove('opacity-0'), 10);
+                }
+
+                // Subtitle visibility logic based on View AND Scroll
+                if (this.state.view === 'home') {
+                    if (this.state.scrolled) {
+                        subtitle.classList.add('opacity-0');
+                        setTimeout(() => subtitle.classList.add('hidden'), 300);
+                    } else {
+                        subtitle.classList.remove('hidden');
+                        setTimeout(() => subtitle.classList.remove('opacity-0'), 10);
+                    }
+                } else {
+                    // In category views, always hide the header subtitle (it's replaced by page title)
+                    subtitle.classList.add('hidden');
+                    subtitle.classList.add('opacity-0');
                 }
             },
 
             setView(viewId) {
                 this.state.view = viewId;
                 window.scrollTo({ top: 0, behavior: 'smooth' });
+                this.state.scrolled = false;
                 this.render();
+                // Ensure header style is updated immediately for the new view
+                this.updateHeaderStyle();
+            },
+
+            updateHeaderText() {
+                const subtitle = document.getElementById('header-subtitle');
+                if (this.state.view === 'home') {
+                    subtitle.innerHTML = `
+                        Ogni percorso da <span class="font-bold text-brand-gold">Beautrì</span> è unico, come te.
+                        <span class="block mt-4 text-base text-gray-500 font-normal leading-relaxed">Quale dettaglio renderebbe la tua esperienza di oggi <span class="text-brand-gold font-bold">indimenticabile</span>?</span>
+                    `;
+                } else {
+                    // Clean subtitle content for other views
+                    subtitle.innerHTML = '';
+                }
             },
 
             render() {
+                this.updateHeaderText();
                 this.renderHeaderIcon();
                 this.renderContent();
                 lucide.createIcons();
@@ -304,10 +333,10 @@
                     const currentCategory = CATEGORIES.find(c => c.id === this.state.view);
                     const items = MENU_ITEMS.filter(i => i.categoryId === this.state.view);
 
-                    // Title
+                    // Title - MODIFIED: Increased size (text-3xl) and visibility as requested
                     const headerDiv = document.createElement('div');
-                    headerDiv.className = 'flex items-center justify-between pt-2 pb-2 mb-4 px-1 animate-fade-in';
-                    headerDiv.innerHTML = `<h2 class="text-lg font-bold text-gray-800">${currentCategory ? currentCategory.label : ''}</h2>`;
+                    headerDiv.className = 'flex items-center justify-between pt-2 pb-4 px-1 animate-fade-in';
+                    headerDiv.innerHTML = `<h2 class="text-3xl font-bold text-anthracite tracking-tight">${currentCategory ? currentCategory.label : ''}</h2>`;
                     container.appendChild(headerDiv);
 
                     // Items Grid
