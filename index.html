@@ -289,11 +289,9 @@
             },
 
             getCategoryStyle(id) {
-                // MODIFIED: Stile Moderno e Unificato (Beautrì Luxury)
-                // Sfondo pulito, ombre morbide, dettagli Oro Brand (#D4AF37)
-                const baseContainer = 'bg-white shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] hover:shadow-[0_8px_25px_-4px_rgba(212,175,55,0.2)] hover:border-brand-gold/30 hover:-translate-y-0.5 transition-all duration-500 cubic-bezier(0.34, 1.56, 0.64, 1) border border-transparent';
+                // MODIFIED: Rimosso effetti hover (ombre e bordi colorati)
+                const baseContainer = 'bg-white shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] transition-all duration-500 cubic-bezier(0.34, 1.56, 0.64, 1) border border-transparent';
                 
-                // Tutti i tasti usano i colori del brand per coerenza estetica
                 return {
                     container: baseContainer,
                     iconBox: 'bg-brand-gold/10 text-brand-gold ring-1 ring-brand-gold/20', 
@@ -315,23 +313,22 @@
                     mainCategories.forEach((cat, index) => {
                        const styles = this.getCategoryStyle(cat.id);
                        
-                       // MODIFIED: Nuova struttura del bottone (stile Card moderna con freccia e Emoji)
-                       // Updated: Removed 'Scopri' and centered text as requested
+                       // MODIFIED: Rimosso classi group-hover
                        gridDiv.innerHTML += `
                            <button
                              onclick="app.setView('${cat.id}')"
-                             class="group relative flex items-center justify-between p-5 rounded-apple ${styles.container} w-full text-left overflow-hidden"
+                             class="group relative flex items-center justify-between p-5 rounded-apple ${styles.container} w-full text-left overflow-hidden active:scale-95 transition-transform"
                              style="animation-delay: ${index * 100}ms"
                            >
                              <div class="flex items-center gap-5 relative z-10 w-full">
-                                <div class="w-14 h-14 rounded-2xl flex items-center justify-center transition-transform duration-500 group-hover:scale-110 shrink-0 ${styles.iconBox}">
+                                <div class="w-14 h-14 rounded-2xl flex items-center justify-center shrink-0 ${styles.iconBox}">
                                    <span class="text-3xl filter drop-shadow-sm leading-none">${cat.symbol}</span>
                                 </div>
                                 <div class="flex-1 px-2 text-center">
-                                   <h3 class="text-lg font-semibold text-anthracite leading-snug group-hover:text-brand-gold transition-colors duration-300">${cat.label}</h3>
+                                   <h3 class="text-lg font-semibold text-anthracite leading-snug transition-colors duration-300">${cat.label}</h3>
                                 </div>
-                                <div class="w-9 h-9 rounded-full bg-gray-50 flex items-center justify-center shrink-0 group-hover:bg-brand-gold group-hover:text-white transition-all duration-300 shadow-sm border border-gray-100 group-hover:border-transparent">
-                                    <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                                <div class="w-9 h-9 rounded-full bg-gray-50 flex items-center justify-center shrink-0 shadow-sm border border-gray-100">
+                                    <i data-lucide="arrow-right" class="w-4 h-4 text-anthracite"></i>
                                 </div>
                              </div>
                            </button>
@@ -342,7 +339,6 @@
                     
                 } else {
                     // Render Category Items
-                    // MODIFICATO: Rimosso il titolo da qui (ora è nell'header nel riquadro)
                     const items = MENU_ITEMS.filter(i => i.categoryId === this.state.view);
 
                     // Items Grid
@@ -355,7 +351,6 @@
                     const sweetCategory = CATEGORIES.find(c => c.id === 'sweet');
                     const sweetItems = MENU_ITEMS.filter(i => i.categoryId === 'sweet');
                     
-                    // MODIFIED: Stile unificato anche per la box dolci
                     const sweetBox = document.createElement('div');
                     sweetBox.className = 'mt-12 bg-white border border-brand-gold/20 shadow-sm rounded-apple p-6 animate-fade-in relative overflow-hidden';
                     sweetBox.style.animationDelay = '200ms';
@@ -382,17 +377,17 @@
             },
 
             createCardHtml(item, isSweet = false) {
-                // MODIFIED: Stile card più pulito per gli elementi
+                // MODIFIED: Rimosso hover:shadow-md e group-hover:text-brand-gold
                 const bgClass = isSweet ? 'bg-white border-brand-gold/10' : 'bg-white border-gray-100';
                 return `
-                    <div class="group relative flex flex-col p-5 rounded-apple border shadow-[0_2px_10px_-2px_rgba(0,0,0,0.03)] hover:shadow-md transition-all duration-300 active:scale-[0.98] ${bgClass}">
+                    <div class="group relative flex flex-col p-5 rounded-apple border shadow-[0_2px_10px_-2px_rgba(0,0,0,0.03)] transition-all duration-300 active:scale-[0.98] ${bgClass}">
                         <div class="flex justify-between items-start">
                             <div class="flex items-start gap-4">
                                 <span class="text-3xl bg-gray-50/80 w-12 h-12 flex items-center justify-center rounded-2xl shrink-0">
                                     ${item.icon}
                                 </span>
                                 <div class="pt-0.5">
-                                    <h3 class="text-base font-bold text-anthracite leading-tight mb-1 group-hover:text-brand-gold transition-colors">${item.name}</h3>
+                                    <h3 class="text-base font-bold text-anthracite leading-tight mb-1 transition-colors">${item.name}</h3>
                                     ${item.ingredients ? 
                                         `<p class="text-sm text-gray-400 font-normal leading-relaxed">${item.ingredients}</p>` : 
                                         ''}
