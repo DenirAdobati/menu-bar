@@ -273,6 +273,7 @@
                        const styles = this.getCategoryStyle(cat.id);
                        
                        // MODIFIED: Nuova struttura del bottone (stile Card moderna con freccia e Emoji)
+                       // Updated: Removed 'Scopri' and centered text as requested
                        gridDiv.innerHTML += `
                            <button
                              onclick="app.setView('${cat.id}')"
@@ -283,12 +284,8 @@
                                 <div class="w-14 h-14 rounded-2xl flex items-center justify-center transition-transform duration-500 group-hover:scale-110 shrink-0 ${styles.iconBox}">
                                    <span class="text-3xl filter drop-shadow-sm leading-none">${cat.symbol}</span>
                                 </div>
-                                <div class="flex-1 pr-4">
+                                <div class="flex-1 px-2 text-center">
                                    <h3 class="text-lg font-semibold text-anthracite leading-snug group-hover:text-brand-gold transition-colors duration-300">${cat.label}</h3>
-                                   <div class="flex items-center gap-1.5 mt-1.5 opacity-60 group-hover:opacity-100 transition-opacity">
-                                       <span class="text-[11px] font-semibold tracking-widest uppercase text-anthracite">Scopri</span>
-                                       <div class="h-px flex-1 bg-gray-200 max-w-[20px]"></div>
-                                   </div>
                                 </div>
                                 <div class="w-9 h-9 rounded-full bg-gray-50 flex items-center justify-center shrink-0 group-hover:bg-brand-gold group-hover:text-white transition-all duration-300 shadow-sm border border-gray-100 group-hover:border-transparent">
                                     <i data-lucide="arrow-right" class="w-4 h-4"></i>
