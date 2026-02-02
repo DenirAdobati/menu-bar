@@ -81,7 +81,7 @@
         scrollbar-width: none;  
       }
 
-      /* --- BACKGROUND PATTERNS --- */
+      /* --- BACKGROUND PATTERNS (Unused but kept for reference) --- */
       
       /* Coffee: Dark Brown with Beans */
       .bg-coffee-pattern {
@@ -225,50 +225,28 @@
                 const footer = document.querySelector('#main-footer');
                 const footerText = footer.querySelector('.footer-text');
                 const footerLines = footer.querySelectorAll('.footer-line');
-                const view = this.state.view;
 
                 // Reset all custom bg classes
-                body.classList.remove('bg-stone-100', 'bg-coffee-pattern', 'bg-tea-pattern', 'bg-infusion-pattern', 'text-anthracite', 'text-white');
+                body.classList.remove('bg-coffee-pattern', 'bg-tea-pattern', 'bg-infusion-pattern', 'text-white');
+                
+                // Always use default light theme
+                body.classList.add('bg-stone-100', 'text-anthracite');
                 
                 // Footer Base Styles
-                footer.classList.remove('opacity-40', 'opacity-80');
+                footer.classList.remove('opacity-80');
+                footer.classList.add('opacity-40');
 
-                // Helper to set footer colors
-                const setFooterColors = (isDark) => {
-                    if (isDark) {
-                         footerText.classList.remove('text-gray-500');
-                         footerText.classList.add('text-white/60');
-                         footerLines.forEach(l => {
-                             l.classList.remove('bg-gray-300');
-                             l.classList.add('bg-white/30');
-                         });
-                    } else {
-                         footerText.classList.add('text-gray-500');
-                         footerText.classList.remove('text-white/60');
-                         footerLines.forEach(l => {
-                             l.classList.add('bg-gray-300');
-                             l.classList.remove('bg-white/30');
-                         });
-                    }
+                // Helper to set footer colors - Always light theme mode
+                const setFooterColors = () => {
+                     footerText.classList.add('text-gray-500');
+                     footerText.classList.remove('text-white/60');
+                     footerLines.forEach(l => {
+                         l.classList.add('bg-gray-300');
+                         l.classList.remove('bg-white/30');
+                     });
                 };
-
-                if (view === 'coffee') {
-                    body.classList.add('bg-coffee-pattern', 'text-white');
-                    footer.classList.add('opacity-80');
-                    setFooterColors(true);
-                } else if (view === 'tea') {
-                    body.classList.add('bg-tea-pattern', 'text-white');
-                    footer.classList.add('opacity-80');
-                    setFooterColors(true);
-                } else if (view === 'infusion') {
-                    body.classList.add('bg-infusion-pattern', 'text-white');
-                    footer.classList.add('opacity-80');
-                    setFooterColors(true);
-                } else {
-                    body.classList.add('bg-stone-100', 'text-anthracite');
-                    footer.classList.add('opacity-40');
-                    setFooterColors(false);
-                }
+                
+                setFooterColors();
             },
 
             updateHeaderStyle() {
@@ -278,22 +256,10 @@
                 const isHome = view === 'home';
                 
                 // Header background logic
-                // If it's home, use white bg on scroll.
-                // If it's a category (dark bg), use dark glass effect on scroll? 
-                // Currently sticking to original "white/95" might look weird on dark bg.
-                // Let's adjust it to standard glass.
-                
                 if (this.state.scrolled) {
                     header.classList.remove('bg-transparent', 'pt-8', 'pb-4');
-                    // Use a more neutral backdrop that works on both (stone and dark)
-                    if (isHome) {
-                         header.classList.add('bg-stone-100/95', 'backdrop-blur-md', 'shadow-sm', 'pt-4', 'pb-2');
-                    } else {
-                         // On dark backgrounds, we don't want a white header bar covering the pattern too much
-                         // Just transparent or very subtle dark tint?
-                         // Let's keep it transparent but shrink padding, as standard behavior
-                         header.classList.add('bg-transparent', 'backdrop-blur-none', 'pt-4', 'pb-2');
-                    }
+                    // Always use standard glass effect on scroll
+                    header.classList.add('bg-stone-100/95', 'backdrop-blur-md', 'shadow-sm', 'pt-4', 'pb-2');
                 } else {
                     header.classList.add('bg-transparent', 'pt-8', 'pb-4');
                     header.classList.remove('bg-stone-100/95', 'backdrop-blur-md', 'shadow-sm', 'pt-4', 'pb-2');
