@@ -134,9 +134,10 @@
     <script>
         // --- DATA ---
         const CATEGORIES = [
-            { id: 'coffee', label: 'Il caffè della bellezza', iconName: 'coffee' },
-            { id: 'tea', label: 'Rilassati con un buon tè e scopri i nostri sapori unici', iconName: 'leaf' },
-            { id: 'infusion', label: 'Infusi e tisane per rilassarti e trovare benessere', iconName: 'droplets' },
+            // Updated to use Emoji symbols as requested
+            { id: 'coffee', label: 'Il caffè della bellezza', symbol: '☕' },
+            { id: 'tea', label: 'Rilassati con un buon tè e scopri i nostri sapori unici', symbol: '🫖' },
+            { id: 'infusion', label: 'Infusi e tisane per rilassarti e trovare benessere', symbol: '🌿' },
             { id: 'sweet', label: 'Per addolcire la tua coccola', iconName: 'candy' },
         ];
 
@@ -245,39 +246,16 @@
             },
 
             getCategoryStyle(id) {
-                // Design pulito ed elegante (Sfondo bianco, ombra leggera)
-                // Colori solo nell'icona per differenziare, come richiesto
-                const baseContainer = 'bg-white border border-gray-100 shadow-sm hover:shadow-md hover:border-brand-gold/40 transition-all duration-300';
+                // MODIFIED: Stile Moderno e Unificato (Beautrì Luxury)
+                // Sfondo pulito, ombre morbide, dettagli Oro Brand (#D4AF37)
+                const baseContainer = 'bg-white shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] hover:shadow-[0_8px_25px_-4px_rgba(212,175,55,0.2)] hover:border-brand-gold/30 hover:-translate-y-0.5 transition-all duration-500 cubic-bezier(0.34, 1.56, 0.64, 1) border border-transparent';
                 
-                switch(id) {
-                    case 'coffee':
-                        return {
-                            container: baseContainer,
-                            // Marrone caldo per il Caffè
-                            iconBox: 'bg-amber-50 text-amber-800', 
-                            iconColor: 'text-amber-800'
-                        };
-                    case 'tea':
-                        return {
-                            container: baseContainer,
-                            // Verde naturale per il Tè
-                            iconBox: 'bg-emerald-50 text-emerald-700',
-                            iconColor: 'text-emerald-700'
-                        };
-                    case 'infusion':
-                        return {
-                            container: baseContainer,
-                            // Viola/Lilla rilassante per Infusi
-                            iconBox: 'bg-violet-50 text-violet-700',
-                            iconColor: 'text-violet-700'
-                        };
-                    default:
-                        return {
-                            container: baseContainer,
-                            iconBox: 'bg-gray-50 text-gray-600',
-                            iconColor: 'text-gray-600'
-                        };
-                }
+                // Tutti i tasti usano i colori del brand per coerenza estetica
+                return {
+                    container: baseContainer,
+                    iconBox: 'bg-brand-gold/10 text-brand-gold ring-1 ring-brand-gold/20', 
+                    iconColor: 'text-brand-gold'
+                };
             },
 
             renderContent() {
@@ -286,27 +264,35 @@
 
                 if (this.state.view === 'home') {
                     // Render 3 Main Buttons (Coffee, Tea, Infusion)
-                    // Exclude 'sweet' from main navigation
                     const mainCategories = CATEGORIES.filter(c => c.id !== 'sweet');
                     
                     const gridDiv = document.createElement('div');
-                    gridDiv.className = 'grid gap-4 animate-fade-in pt-4';
+                    gridDiv.className = 'grid gap-5 animate-fade-in pt-4';
                     
                     mainCategories.forEach((cat, index) => {
                        const styles = this.getCategoryStyle(cat.id);
                        
+                       // MODIFIED: Nuova struttura del bottone (stile Card moderna con freccia e Emoji)
                        gridDiv.innerHTML += `
                            <button
                              onclick="app.setView('${cat.id}')"
-                             class="group relative flex items-center p-6 rounded-apple ${styles.container} text-left w-full"
-                             style="animation-delay: ${index * 50}ms"
+                             class="group relative flex items-center justify-between p-5 rounded-apple ${styles.container} w-full text-left overflow-hidden"
+                             style="animation-delay: ${index * 100}ms"
                            >
-                             <div class="p-4 rounded-2xl mr-5 transition-colors ${styles.iconBox}">
-                                <i data-lucide="${cat.iconName}" class="w-8 h-8 ${styles.iconColor}"></i>
-                             </div>
-                             <div>
-                               <h3 class="text-lg font-bold text-anthracite group-hover:text-brand-gold transition-colors">${cat.label}</h3>
-                               <p class="text-sm text-gray-500 mt-1">Scopri di più</p>
+                             <div class="flex items-center gap-5 relative z-10 w-full">
+                                <div class="w-14 h-14 rounded-2xl flex items-center justify-center transition-transform duration-500 group-hover:scale-110 shrink-0 ${styles.iconBox}">
+                                   <span class="text-3xl filter drop-shadow-sm leading-none">${cat.symbol}</span>
+                                </div>
+                                <div class="flex-1 pr-4">
+                                   <h3 class="text-lg font-semibold text-anthracite leading-snug group-hover:text-brand-gold transition-colors duration-300">${cat.label}</h3>
+                                   <div class="flex items-center gap-1.5 mt-1.5 opacity-60 group-hover:opacity-100 transition-opacity">
+                                       <span class="text-[11px] font-semibold tracking-widest uppercase text-anthracite">Scopri</span>
+                                       <div class="h-px flex-1 bg-gray-200 max-w-[20px]"></div>
+                                   </div>
+                                </div>
+                                <div class="w-9 h-9 rounded-full bg-gray-50 flex items-center justify-center shrink-0 group-hover:bg-brand-gold group-hover:text-white transition-all duration-300 shadow-sm border border-gray-100 group-hover:border-transparent">
+                                    <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                                </div>
                              </div>
                            </button>
                        `; 
@@ -335,20 +321,22 @@
                     const sweetCategory = CATEGORIES.find(c => c.id === 'sweet');
                     const sweetItems = MENU_ITEMS.filter(i => i.categoryId === 'sweet');
                     
+                    // MODIFIED: Stile unificato anche per la box dolci
                     const sweetBox = document.createElement('div');
-                    sweetBox.className = 'mt-12 bg-yellow-50/50 border border-yellow-100 rounded-apple p-6 animate-fade-in';
+                    sweetBox.className = 'mt-12 bg-white border border-brand-gold/20 shadow-sm rounded-apple p-6 animate-fade-in relative overflow-hidden';
                     sweetBox.style.animationDelay = '200ms';
                     
                     let sweetHtml = `
-                        <div class="flex items-center gap-2 mb-4">
-                           <div class="p-1.5 bg-brand-gold/20 rounded-lg">
-                              <i data-lucide="candy" class="w-4 h-4 text-brand-gold"></i>
+                        <div class="absolute top-0 right-0 w-32 h-32 bg-brand-gold/5 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none"></div>
+                        <div class="flex items-center gap-3 mb-6 relative z-10">
+                           <div class="p-2 bg-brand-gold/10 rounded-xl text-brand-gold">
+                              <i data-lucide="candy" class="w-5 h-5"></i>
                            </div>
                            <h3 class="text-lg font-bold text-anthracite">
                              ${sweetCategory ? sweetCategory.label : 'Per addolcire la tua coccola'}
                            </h3>
                         </div>
-                        <div class="grid gap-4">
+                        <div class="grid gap-4 relative z-10">
                     `;
                     
                     sweetHtml += sweetItems.map(item => this.createCardHtml(item, true)).join('');
@@ -360,16 +348,17 @@
             },
 
             createCardHtml(item, isSweet = false) {
-                const bgClass = isSweet ? 'bg-white border-yellow-100/50' : 'bg-white border-gray-100';
+                // MODIFIED: Stile card più pulito per gli elementi
+                const bgClass = isSweet ? 'bg-white border-brand-gold/10' : 'bg-white border-gray-100';
                 return `
-                    <div class="group relative flex flex-col p-5 rounded-apple border shadow-sm transition-all duration-300 active:scale-[0.98] ${bgClass}">
+                    <div class="group relative flex flex-col p-5 rounded-apple border shadow-[0_2px_10px_-2px_rgba(0,0,0,0.03)] hover:shadow-md transition-all duration-300 active:scale-[0.98] ${bgClass}">
                         <div class="flex justify-between items-start">
                             <div class="flex items-start gap-4">
-                                <span class="text-3xl bg-gray-50 w-12 h-12 flex items-center justify-center rounded-2xl shrink-0 shadow-inner">
+                                <span class="text-3xl bg-gray-50/80 w-12 h-12 flex items-center justify-center rounded-2xl shrink-0">
                                     ${item.icon}
                                 </span>
                                 <div class="pt-0.5">
-                                    <h3 class="text-base font-bold text-anthracite leading-tight mb-1">${item.name}</h3>
+                                    <h3 class="text-base font-bold text-anthracite leading-tight mb-1 group-hover:text-brand-gold transition-colors">${item.name}</h3>
                                     ${item.ingredients ? 
                                         `<p class="text-sm text-gray-400 font-normal leading-relaxed">${item.ingredients}</p>` : 
                                         ''}
