@@ -79,11 +79,6 @@
         -ms-overflow-style: none; 
         scrollbar-width: none;  
       }
-
-      .mask-image-gradient {
-        mask-image: linear-gradient(to right, black 85%, transparent 100%);
-        -webkit-mask-image: linear-gradient(to right, black 85%, transparent 100%);
-      }
     </style>
 <script type="importmap">
 {
@@ -103,10 +98,10 @@
         <div class="max-w-xl mx-auto px-6">
             
             <!-- Top Bar -->
-            <header class="flex items-center justify-between mb-6">
+            <header class="flex items-center justify-between mb-2">
                 <div class="flex items-center gap-3">
-                   <div class="p-2.5 bg-yellow-50 rounded-xl rotate-3 shadow-sm border border-yellow-100">
-                      <i data-lucide="sparkles" class="w-5 h-5 text-brand-gold fill-brand-gold/20"></i>
+                   <div id="header-icon-container" class="transition-all duration-300">
+                       <!-- Injected by JS: Sparkle Icon OR Back Button -->
                    </div>
                    <div>
                       <h1 class="text-xl font-bold tracking-tight text-gray-900">Beautrì</h1>
@@ -114,11 +109,6 @@
                    </div>
                 </div>
             </header>
-
-            <!-- Navigation Categories -->
-            <nav class="flex space-x-2 overflow-x-auto no-scrollbar pb-2 -mx-6 px-6 mask-image-gradient" id="category-nav">
-                <!-- Categories injected by JS -->
-            </nav>
         </div>
     </div>
 
@@ -126,18 +116,6 @@
     <main class="max-w-xl mx-auto px-6 space-y-8 min-h-[60vh] mt-2">
         <div id="menu-container" class="grid gap-6">
             <!-- Items injected by JS -->
-        </div>
-
-        <!-- Empty State (Hidden by default) -->
-        <div id="empty-state" class="hidden flex-col items-center justify-center py-16 text-center text-gray-400 bg-white rounded-[2rem] border border-dashed border-gray-200 shadow-sm mx-auto w-full">
-             <div class="p-4 bg-gray-50 rounded-full mb-4">
-                <i data-lucide="heart" class="w-8 h-8 text-gray-300"></i>
-             </div>
-             <p class="text-lg font-semibold text-gray-600">Nessun preferito</p>
-             <p class="text-sm text-gray-400 mt-1 max-w-[200px]">Tocca il cuore sui prodotti per aggiungerli qui.</p>
-             <button onclick="app.setCategory('all')" class="mt-6 text-brand-gold font-semibold text-sm hover:underline uppercase tracking-wide">
-               Torna al menu
-             </button>
         </div>
     </main>
 
@@ -200,23 +178,13 @@
         // --- APP LOGIC ---
         const app = {
             state: {
-                activeCategory: 'all',
-                favorites: new Set(),
+                view: 'home', // 'home' or categoryId
                 scrolled: false
             },
 
             init() {
-                // Load favorites from local storage
-                const savedFavs = localStorage.getItem('beautri_favorites');
-                if (savedFavs) {
-                    this.state.favorites = new Set(JSON.parse(savedFavs));
-                }
-
                 this.setupScrollListener();
                 this.render();
-                
-                // Initialize Lucide icons immediately
-                lucide.createIcons();
             },
 
             setupScrollListener() {
@@ -246,135 +214,116 @@
                 }
             },
 
-            setCategory(catId) {
-                this.state.activeCategory = catId;
+            setView(viewId) {
+                this.state.view = viewId;
                 window.scrollTo({ top: 0, behavior: 'smooth' });
                 this.render();
             },
 
-            getFilteredItems() {
-                if (this.state.activeCategory === 'all') return MENU_ITEMS;
-                // 'favorites' category logic kept for stability but unreachable via UI
-                if (this.state.activeCategory === 'favorites') {
-                    return MENU_ITEMS.filter(item => this.state.favorites.has(item.id));
-                }
-                return MENU_ITEMS.filter(item => item.categoryId === this.state.activeCategory);
-            },
-
             render() {
-                this.renderNav();
+                this.renderHeaderIcon();
                 this.renderContent();
                 lucide.createIcons();
             },
 
-            renderNav() {
-                const nav = document.getElementById('category-nav');
-                const activeClass = 'bg-anthracite text-white border-anthracite shadow-lg scale-105 font-semibold';
-                const inactiveClass = 'bg-white text-gray-500 border-gray-200 hover:border-gray-300 hover:bg-gray-50 font-medium';
-                
-                // All button
-                let html = `
-                    <button
-                        onclick="app.setCategory('all')"
-                        class="flex-shrink-0 px-5 py-2.5 rounded-full text-sm transition-all duration-300 border ${this.state.activeCategory === 'all' ? activeClass : inactiveClass}"
-                    >
-                        Tutti
-                    </button>
-                `;
-
-                CATEGORIES.forEach(cat => {
-                    const isActive = this.state.activeCategory === cat.id;
-                    const activeCatClass = 'bg-brand-gold text-white border-brand-gold shadow-lg scale-105 font-semibold';
-                    
-                    html += `
-                        <button
-                            onclick="app.setCategory('${cat.id}')"
-                            class="flex-shrink-0 flex items-center gap-2 px-5 py-2.5 rounded-full text-sm transition-all duration-300 border ${isActive ? activeCatClass : inactiveClass}"
-                        >
-                            <i data-lucide="${cat.iconName}" class="w-4 h-4"></i>
-                            ${cat.label}
+            renderHeaderIcon() {
+                const container = document.getElementById('header-icon-container');
+                if (this.state.view === 'home') {
+                    container.innerHTML = `
+                        <div class="p-2.5 bg-yellow-50 rounded-xl rotate-3 shadow-sm border border-yellow-100">
+                           <i data-lucide="sparkles" class="w-5 h-5 text-brand-gold fill-brand-gold/20"></i>
+                        </div>
+                    `;
+                } else {
+                    container.innerHTML = `
+                        <button onclick="app.setView('home')" class="p-2.5 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors active:scale-95 flex items-center justify-center">
+                           <i data-lucide="chevron-left" class="w-5 h-5 text-anthracite"></i>
                         </button>
                     `;
-                });
-
-                nav.innerHTML = html;
+                }
             },
 
             renderContent() {
                 const container = document.getElementById('menu-container');
-                const emptyState = document.getElementById('empty-state');
-                
-                // Reset container
                 container.innerHTML = '';
-                
-                // Handle Favorites Empty State (unreachable but kept for code safety)
-                if (this.state.activeCategory === 'favorites' && this.state.favorites.size === 0) {
-                    container.classList.add('hidden');
-                    emptyState.classList.remove('hidden');
-                    emptyState.classList.add('flex');
-                    return;
-                }
-                
-                emptyState.classList.add('hidden');
-                emptyState.classList.remove('flex');
-                container.classList.remove('hidden');
 
-                if (this.state.activeCategory === 'all') {
-                    // Group by category
-                    CATEGORIES.forEach((cat, index) => {
-                        const items = MENU_ITEMS.filter(i => i.categoryId === cat.id);
-                        if (items.length === 0) return;
-
-                        const section = document.createElement('section');
-                        section.className = 'animate-fade-in';
-                        section.style.animationDelay = `${index * 50}ms`;
-                        
-                        // Header section
-                        section.innerHTML = `
-                            <div class="flex items-center gap-2.5 mb-5 mt-2 px-1">
-                                <div class="p-1.5 bg-brand-gold/10 rounded-lg">
-                                    <i data-lucide="${cat.iconName}" class="w-4 h-4 text-brand-gold"></i>
-                                </div>
-                                <h2 class="text-lg font-bold text-gray-800 tracking-tight">${cat.label}</h2>
-                            </div>
-                            <div class="grid gap-4">
-                                ${items.map(item => this.createCardHtml(item)).join('')}
-                            </div>
-                        `;
-                        container.appendChild(section);
-                    });
-                } else {
-                    // Single list (Category)
-                    const items = this.getFilteredItems();
+                if (this.state.view === 'home') {
+                    // Render 3 Main Buttons (Coffee, Tea, Infusion)
+                    // Exclude 'sweet' from main navigation
+                    const mainCategories = CATEGORIES.filter(c => c.id !== 'sweet');
                     
-                    if (items.length === 0 && this.state.activeCategory !== 'favorites') {
-                        container.innerHTML = `<div class="text-center py-10 text-gray-400">Nessun prodotto disponibile.</div>`;
-                        return;
-                    }
-
-                    // Title for specific view
-                    const titleDiv = document.createElement('div');
-                    const titleText = this.state.activeCategory === 'favorites' ? 'I tuoi Preferiti' : CATEGORIES.find(c => c.id === this.state.activeCategory)?.label;
-                    titleDiv.className = 'flex items-center justify-between pt-2 pb-2 mb-2 px-1 animate-fade-in';
-                    titleDiv.innerHTML = `
-                        <h2 class="text-lg font-bold text-gray-800">${titleText}</h2>
-                        <span class="text-xs font-semibold text-gray-500 bg-gray-100 px-2.5 py-1 rounded-lg">
-                            ${items.length}
-                        </span>
-                    `;
-                    container.appendChild(titleDiv);
-
-                    // Grid
                     const gridDiv = document.createElement('div');
-                    gridDiv.className = 'grid gap-4 animate-fade-in';
-                    gridDiv.innerHTML = items.map(item => this.createCardHtml(item)).join('');
+                    gridDiv.className = 'grid gap-4 animate-fade-in pt-4';
+                    
+                    mainCategories.forEach((cat, index) => {
+                       gridDiv.innerHTML += `
+                           <button
+                             onclick="app.setView('${cat.id}')"
+                             class="group relative flex items-center p-6 bg-white rounded-apple border border-gray-100 shadow-sm transition-all duration-300 hover:shadow-md active:scale-[0.98] text-left w-full"
+                             style="animation-delay: ${index * 50}ms"
+                           >
+                             <div class="p-4 bg-brand-gold/10 rounded-2xl mr-5 group-hover:bg-brand-gold/20 transition-colors">
+                                <i data-lucide="${cat.iconName}" class="w-8 h-8 text-brand-gold"></i>
+                             </div>
+                             <div>
+                               <h3 class="text-lg font-bold text-anthracite">${cat.label}</h3>
+                               <p class="text-sm text-gray-400 mt-1">Scopri di più</p>
+                             </div>
+                           </button>
+                       `; 
+                    });
+                    
                     container.appendChild(gridDiv);
+                    
+                } else {
+                    // Render Category Items
+                    const currentCategory = CATEGORIES.find(c => c.id === this.state.view);
+                    const items = MENU_ITEMS.filter(i => i.categoryId === this.state.view);
+
+                    // Title
+                    const headerDiv = document.createElement('div');
+                    headerDiv.className = 'flex items-center justify-between pt-2 pb-2 mb-4 px-1 animate-fade-in';
+                    headerDiv.innerHTML = `<h2 class="text-lg font-bold text-gray-800">${currentCategory ? currentCategory.label : ''}</h2>`;
+                    container.appendChild(headerDiv);
+
+                    // Items Grid
+                    const itemsGrid = document.createElement('div');
+                    itemsGrid.className = 'grid gap-4 animate-fade-in';
+                    itemsGrid.innerHTML = items.map(item => this.createCardHtml(item)).join('');
+                    container.appendChild(itemsGrid);
+
+                    // Sweet Section (Bottom Box)
+                    const sweetCategory = CATEGORIES.find(c => c.id === 'sweet');
+                    const sweetItems = MENU_ITEMS.filter(i => i.categoryId === 'sweet');
+                    
+                    const sweetBox = document.createElement('div');
+                    sweetBox.className = 'mt-12 bg-yellow-50/50 border border-yellow-100 rounded-apple p-6 animate-fade-in';
+                    sweetBox.style.animationDelay = '200ms';
+                    
+                    let sweetHtml = `
+                        <div class="flex items-center gap-2 mb-4">
+                           <div class="p-1.5 bg-brand-gold/20 rounded-lg">
+                              <i data-lucide="candy" class="w-4 h-4 text-brand-gold"></i>
+                           </div>
+                           <h3 class="text-lg font-bold text-anthracite">
+                             ${sweetCategory ? sweetCategory.label : 'Per addolcire la tua coccola'}
+                           </h3>
+                        </div>
+                        <div class="grid gap-4">
+                    `;
+                    
+                    sweetHtml += sweetItems.map(item => this.createCardHtml(item, true)).join('');
+                    sweetHtml += `</div>`;
+                    
+                    sweetBox.innerHTML = sweetHtml;
+                    container.appendChild(sweetBox);
                 }
             },
 
-            createCardHtml(item) {
+            createCardHtml(item, isSweet = false) {
+                const bgClass = isSweet ? 'bg-white border-yellow-100/50' : 'bg-white border-gray-100';
                 return `
-                    <div class="group relative flex flex-col p-5 bg-white rounded-apple border border-gray-100 shadow-sm transition-all duration-300 active:scale-[0.98]">
+                    <div class="group relative flex flex-col p-5 rounded-apple border shadow-sm transition-all duration-300 active:scale-[0.98] ${bgClass}">
                         <div class="flex justify-between items-start">
                             <div class="flex items-start gap-4">
                                 <span class="text-3xl bg-gray-50 w-12 h-12 flex items-center justify-center rounded-2xl shrink-0 shadow-inner">
