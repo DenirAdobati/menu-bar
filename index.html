@@ -245,30 +245,37 @@
             },
 
             getCategoryStyle(id) {
+                // Design pulito ed elegante (Sfondo bianco, ombra leggera)
+                // Colori solo nell'icona per differenziare, come richiesto
+                const baseContainer = 'bg-white border border-gray-100 shadow-sm hover:shadow-md hover:border-brand-gold/40 transition-all duration-300';
+                
                 switch(id) {
                     case 'coffee':
                         return {
-                            container: 'bg-orange-50/50 border-orange-100 hover:border-orange-200',
-                            iconBox: 'bg-orange-100 text-orange-600',
-                            iconColor: 'text-orange-600'
+                            container: baseContainer,
+                            // Marrone caldo per il Caffè
+                            iconBox: 'bg-amber-50 text-amber-800', 
+                            iconColor: 'text-amber-800'
                         };
                     case 'tea':
                         return {
-                            container: 'bg-emerald-50/50 border-emerald-100 hover:border-emerald-200',
-                            iconBox: 'bg-emerald-100 text-emerald-600',
-                            iconColor: 'text-emerald-600'
+                            container: baseContainer,
+                            // Verde naturale per il Tè
+                            iconBox: 'bg-emerald-50 text-emerald-700',
+                            iconColor: 'text-emerald-700'
                         };
                     case 'infusion':
                         return {
-                            container: 'bg-violet-50/50 border-violet-100 hover:border-violet-200',
-                            iconBox: 'bg-violet-100 text-violet-600',
-                            iconColor: 'text-violet-600'
+                            container: baseContainer,
+                            // Viola/Lilla rilassante per Infusi
+                            iconBox: 'bg-violet-50 text-violet-700',
+                            iconColor: 'text-violet-700'
                         };
                     default:
                         return {
-                            container: 'bg-white border-gray-100',
-                            iconBox: 'bg-brand-gold/10 text-brand-gold',
-                            iconColor: 'text-brand-gold'
+                            container: baseContainer,
+                            iconBox: 'bg-gray-50 text-gray-600',
+                            iconColor: 'text-gray-600'
                         };
                 }
             },
@@ -291,14 +298,14 @@
                        gridDiv.innerHTML += `
                            <button
                              onclick="app.setView('${cat.id}')"
-                             class="group relative flex items-center p-6 rounded-apple border shadow-sm transition-all duration-300 hover:shadow-md active:scale-[0.98] text-left w-full ${styles.container}"
+                             class="group relative flex items-center p-6 rounded-apple ${styles.container} text-left w-full"
                              style="animation-delay: ${index * 50}ms"
                            >
                              <div class="p-4 rounded-2xl mr-5 transition-colors ${styles.iconBox}">
                                 <i data-lucide="${cat.iconName}" class="w-8 h-8 ${styles.iconColor}"></i>
                              </div>
                              <div>
-                               <h3 class="text-lg font-bold text-anthracite">${cat.label}</h3>
+                               <h3 class="text-lg font-bold text-anthracite group-hover:text-brand-gold transition-colors">${cat.label}</h3>
                                <p class="text-sm text-gray-500 mt-1">Scopri di più</p>
                              </div>
                            </button>
