@@ -23,9 +23,10 @@
             colors: {
               anthracite: '#333333',
               'apple-gray': '#F5F5F7',
+              'brand-gold': '#D4AF37',
             },
             borderRadius: {
-              'apple': '3rem',
+              'apple': '2rem',
             }
           },
         },
@@ -37,18 +38,39 @@
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
       }
+      /* Custom scrollbar */
+      ::-webkit-scrollbar {
+        width: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent; 
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #e5e7eb; 
+        border-radius: 3px;
+      }
     </style>
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@^19.2.4",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
+    "react/": "https://esm.sh/react@^19.2.4/",
+    "lucide-react": "https://esm.sh/lucide-react@^0.563.0"
+  }
+}
+</script>
 </head>
-<body class="min-h-screen bg-white text-anthracite selection:bg-gray-200">
+<body class="min-h-screen bg-gradient-to-b from-white to-gray-50 text-anthracite selection:bg-brand-gold/20">
     <div class="max-w-xl mx-auto px-6 py-12 md:py-20">
         
         <!-- Header -->
         <header class="flex flex-col items-center mb-16 text-center space-y-4">
-            <h1 class="text-4xl font-bold tracking-tight text-gray-900">Beautrì</h1>
-            <div class="flex items-center gap-2 text-gray-500">
-                <i data-lucide="sparkles" class="w-4 h-4"></i>
-                <p class="text-lg font-light tracking-wide">Una coccola tutta per te</p>
+            <div class="p-3 bg-yellow-50 rounded-2xl mb-2 rotate-3 hover:rotate-6 transition-transform duration-500">
+                <i data-lucide="sparkles" class="w-8 h-8 text-brand-gold fill-brand-gold/20"></i>
             </div>
+            <h1 class="text-4xl font-bold tracking-tight text-gray-900">Beautrì</h1>
+            <p class="text-lg font-light tracking-wide text-gray-500">Una coccola tutta per te</p>
         </header>
 
         <!-- Main Content -->
@@ -57,61 +79,63 @@
             <!-- Caffetteria -->
             <div class="w-full">
                 <div class="flex items-center gap-3 mb-4 pl-4">
-                    <i data-lucide="coffee" class="w-6 h-6 text-gray-900 stroke-[1.5]"></i>
+                    <div class="p-2 bg-gray-100 rounded-full">
+                        <i data-lucide="coffee" class="w-5 h-5 text-gray-900 stroke-[1.5]"></i>
+                    </div>
                     <h2 class="text-2xl font-semibold text-anthracite tracking-tight">Caffetteria</h2>
                 </div>
-                <div class="bg-apple-gray rounded-apple p-8 shadow-[0_2px_20px_rgba(0,0,0,0.02)] transition-transform duration-500 hover:scale-[1.01]">
+                <div class="bg-apple-gray rounded-apple p-8 shadow-[0_2px_20px_rgba(0,0,0,0.02)] hover:shadow-lg transition-all duration-500">
                     <div class="flex flex-col">
                         <!-- Item -->
-                        <div class="flex flex-col">
-                            <div class="flex justify-between items-center py-4 pr-2">
+                        <div class="flex flex-col group cursor-default">
+                            <div class="flex justify-between items-center py-4 pr-2 transition-colors duration-300 group-hover:bg-white/50 rounded-xl px-2 -mx-2">
                                 <div class="flex flex-col">
-                                    <span class="text-lg font-medium text-anthracite tracking-tight">Caffè</span>
+                                    <span class="text-lg font-medium text-anthracite tracking-tight"><span class="mr-2">☕</span>Caffè</span>
                                 </div>
                             </div>
-                            <div class="h-[1px] bg-gray-200 w-full"></div>
+                            <div class="h-[1px] bg-gray-200 w-full ml-8 opacity-70"></div>
                         </div>
                         <!-- Item -->
-                        <div class="flex flex-col">
-                            <div class="flex justify-between items-center py-4 pr-2">
+                        <div class="flex flex-col group cursor-default">
+                            <div class="flex justify-between items-center py-4 pr-2 transition-colors duration-300 group-hover:bg-white/50 rounded-xl px-2 -mx-2">
                                 <div class="flex flex-col">
-                                    <span class="text-lg font-medium text-anthracite tracking-tight">Caffè macchiato freddo</span>
+                                    <span class="text-lg font-medium text-anthracite tracking-tight"><span class="mr-2">☕</span>Caffè lungo</span>
                                 </div>
                             </div>
-                            <div class="h-[1px] bg-gray-200 w-full"></div>
+                            <div class="h-[1px] bg-gray-200 w-full ml-8 opacity-70"></div>
                         </div>
                         <!-- Item -->
-                        <div class="flex flex-col">
-                            <div class="flex justify-between items-center py-4 pr-2">
+                        <div class="flex flex-col group cursor-default">
+                            <div class="flex justify-between items-center py-4 pr-2 transition-colors duration-300 group-hover:bg-white/50 rounded-xl px-2 -mx-2">
                                 <div class="flex flex-col">
-                                    <span class="text-lg font-medium text-anthracite tracking-tight">Caffè lungo</span>
+                                    <span class="text-lg font-medium text-anthracite tracking-tight"><span class="mr-2">☕</span>Caffè corto</span>
                                 </div>
                             </div>
-                            <div class="h-[1px] bg-gray-200 w-full"></div>
+                            <div class="h-[1px] bg-gray-200 w-full ml-8 opacity-70"></div>
                         </div>
-                        <!-- Item -->
-                        <div class="flex flex-col">
-                            <div class="flex justify-between items-center py-4 pr-2">
+                        <!-- Item (Moved Here) -->
+                        <div class="flex flex-col group cursor-default">
+                            <div class="flex justify-between items-center py-4 pr-2 transition-colors duration-300 group-hover:bg-white/50 rounded-xl px-2 -mx-2">
                                 <div class="flex flex-col">
-                                    <span class="text-lg font-medium text-anthracite tracking-tight">Caffè corto</span>
+                                    <span class="text-lg font-medium text-anthracite tracking-tight"><span class="mr-2">🧊</span>Caffè macchiato freddo</span>
                                 </div>
                             </div>
-                            <div class="h-[1px] bg-gray-200 w-full"></div>
+                            <div class="h-[1px] bg-gray-200 w-full ml-8 opacity-70"></div>
                         </div>
                         <!-- Item -->
-                        <div class="flex flex-col">
-                            <div class="flex justify-between items-center py-4 pr-2">
+                        <div class="flex flex-col group cursor-default">
+                            <div class="flex justify-between items-center py-4 pr-2 transition-colors duration-300 group-hover:bg-white/50 rounded-xl px-2 -mx-2">
                                 <div class="flex flex-col">
-                                    <span class="text-lg font-medium text-anthracite tracking-tight">Caffè americano</span>
+                                    <span class="text-lg font-medium text-anthracite tracking-tight"><span class="mr-2">🇺🇸</span>Caffè americano</span>
                                 </div>
                             </div>
-                            <div class="h-[1px] bg-gray-200 w-full"></div>
+                            <div class="h-[1px] bg-gray-200 w-full ml-8 opacity-70"></div>
                         </div>
                         <!-- Item -->
-                        <div class="flex flex-col">
-                            <div class="flex justify-between items-center py-4 pr-2">
+                        <div class="flex flex-col group cursor-default">
+                            <div class="flex justify-between items-center py-4 pr-2 transition-colors duration-300 group-hover:bg-white/50 rounded-xl px-2 -mx-2">
                                 <div class="flex flex-col">
-                                    <span class="text-lg font-medium text-anthracite tracking-tight">Caffè con Nutella</span>
+                                    <span class="text-lg font-medium text-anthracite tracking-tight"><span class="mr-2">🌰</span>Caffè con Nutella</span>
                                 </div>
                             </div>
                         </div>
@@ -122,69 +146,71 @@
             <!-- Mondo Tè -->
             <div class="w-full">
                 <div class="flex items-center gap-3 mb-4 pl-4">
-                    <i data-lucide="leaf" class="w-6 h-6 text-gray-900 stroke-[1.5]"></i>
+                    <div class="p-2 bg-gray-100 rounded-full">
+                        <i data-lucide="leaf" class="w-5 h-5 text-gray-900 stroke-[1.5]"></i>
+                    </div>
                     <h2 class="text-2xl font-semibold text-anthracite tracking-tight">Mondo Tè</h2>
                 </div>
-                <div class="bg-apple-gray rounded-apple p-8 shadow-[0_2px_20px_rgba(0,0,0,0.02)] transition-transform duration-500 hover:scale-[1.01]">
+                <div class="bg-apple-gray rounded-apple p-8 shadow-[0_2px_20px_rgba(0,0,0,0.02)] hover:shadow-lg transition-all duration-500">
                     <div class="flex flex-col">
-                        <div class="flex flex-col">
-                            <div class="flex justify-between items-center py-4 pr-2">
+                        <div class="flex flex-col group cursor-default">
+                            <div class="flex justify-between items-center py-4 pr-2 transition-colors duration-300 group-hover:bg-white/50 rounded-xl px-2 -mx-2">
                                 <div class="flex flex-col">
-                                    <span class="text-lg font-medium text-anthracite tracking-tight">Tè Bianco</span>
-                                    <span class="text-sm text-gray-500 mt-0.5 font-light">con cannella</span>
+                                    <span class="text-lg font-medium text-anthracite tracking-tight"><span class="mr-2">🍂</span>Tè Bianco</span>
+                                    <span class="text-sm text-gray-500 mt-0.5 font-light ml-8">con cannella</span>
                                 </div>
                             </div>
-                            <div class="h-[1px] bg-gray-200 w-full"></div>
+                            <div class="h-[1px] bg-gray-200 w-full ml-8 opacity-70"></div>
                         </div>
-                        <div class="flex flex-col">
-                            <div class="flex justify-between items-center py-4 pr-2">
+                        <div class="flex flex-col group cursor-default">
+                            <div class="flex justify-between items-center py-4 pr-2 transition-colors duration-300 group-hover:bg-white/50 rounded-xl px-2 -mx-2">
                                 <div class="flex flex-col">
-                                    <span class="text-lg font-medium text-anthracite tracking-tight">Rooibos</span>
-                                    <span class="text-sm text-gray-500 mt-0.5 font-light">con cannella</span>
+                                    <span class="text-lg font-medium text-anthracite tracking-tight"><span class="mr-2">🫖</span>Rooibos</span>
+                                    <span class="text-sm text-gray-500 mt-0.5 font-light ml-8">con cannella</span>
                                 </div>
                             </div>
-                            <div class="h-[1px] bg-gray-200 w-full"></div>
+                            <div class="h-[1px] bg-gray-200 w-full ml-8 opacity-70"></div>
                         </div>
-                        <div class="flex flex-col">
-                            <div class="flex justify-between items-center py-4 pr-2">
+                        <div class="flex flex-col group cursor-default">
+                            <div class="flex justify-between items-center py-4 pr-2 transition-colors duration-300 group-hover:bg-white/50 rounded-xl px-2 -mx-2">
                                 <div class="flex flex-col">
-                                    <span class="text-lg font-medium text-anthracite tracking-tight">Tè Verde</span>
-                                    <span class="text-sm text-gray-500 mt-0.5 font-light">al limone</span>
+                                    <span class="text-lg font-medium text-anthracite tracking-tight"><span class="mr-2">🍋</span>Tè Verde</span>
+                                    <span class="text-sm text-gray-500 mt-0.5 font-light ml-8">al limone</span>
                                 </div>
                             </div>
-                            <div class="h-[1px] bg-gray-200 w-full"></div>
+                            <div class="h-[1px] bg-gray-200 w-full ml-8 opacity-70"></div>
                         </div>
-                        <div class="flex flex-col">
-                            <div class="flex justify-between items-center py-4 pr-2">
+                        <div class="flex flex-col group cursor-default">
+                            <div class="flex justify-between items-center py-4 pr-2 transition-colors duration-300 group-hover:bg-white/50 rounded-xl px-2 -mx-2">
                                 <div class="flex flex-col">
-                                    <span class="text-lg font-medium text-anthracite tracking-tight">Tè Nero</span>
-                                    <span class="text-sm text-gray-500 mt-0.5 font-light">con cannella, cardamomo</span>
+                                    <span class="text-lg font-medium text-anthracite tracking-tight"><span class="mr-2">🌑</span>Tè Nero</span>
+                                    <span class="text-sm text-gray-500 mt-0.5 font-light ml-8">con cannella, cardamomo</span>
                                 </div>
                             </div>
-                            <div class="h-[1px] bg-gray-200 w-full"></div>
+                            <div class="h-[1px] bg-gray-200 w-full ml-8 opacity-70"></div>
                         </div>
-                        <div class="flex flex-col">
-                            <div class="flex justify-between items-center py-4 pr-2">
+                        <div class="flex flex-col group cursor-default">
+                            <div class="flex justify-between items-center py-4 pr-2 transition-colors duration-300 group-hover:bg-white/50 rounded-xl px-2 -mx-2">
                                 <div class="flex flex-col">
-                                    <span class="text-lg font-medium text-anthracite tracking-tight">Tè Ecologico</span>
-                                    <span class="text-sm text-gray-500 mt-0.5 font-light">cannella, zenzero e cardamomo</span>
+                                    <span class="text-lg font-medium text-anthracite tracking-tight"><span class="mr-2">🌿</span>Tè Ecologico</span>
+                                    <span class="text-sm text-gray-500 mt-0.5 font-light ml-8">cannella, zenzero e cardamomo</span>
                                 </div>
                             </div>
-                            <div class="h-[1px] bg-gray-200 w-full"></div>
+                            <div class="h-[1px] bg-gray-200 w-full ml-8 opacity-70"></div>
                         </div>
-                        <div class="flex flex-col">
-                            <div class="flex justify-between items-center py-4 pr-2">
+                        <div class="flex flex-col group cursor-default">
+                            <div class="flex justify-between items-center py-4 pr-2 transition-colors duration-300 group-hover:bg-white/50 rounded-xl px-2 -mx-2">
                                 <div class="flex flex-col">
-                                    <span class="text-lg font-medium text-anthracite tracking-tight">Tè Rosso</span>
-                                    <span class="text-sm text-gray-500 mt-0.5 font-light">ibisco e kiwi</span>
+                                    <span class="text-lg font-medium text-anthracite tracking-tight"><span class="mr-2">🔴</span>Tè Rosso</span>
+                                    <span class="text-sm text-gray-500 mt-0.5 font-light ml-8">ibisco e kiwi</span>
                                 </div>
                             </div>
-                            <div class="h-[1px] bg-gray-200 w-full"></div>
+                            <div class="h-[1px] bg-gray-200 w-full ml-8 opacity-70"></div>
                         </div>
-                        <div class="flex flex-col">
-                            <div class="flex justify-between items-center py-4 pr-2">
+                        <div class="flex flex-col group cursor-default">
+                            <div class="flex justify-between items-center py-4 pr-2 transition-colors duration-300 group-hover:bg-white/50 rounded-xl px-2 -mx-2">
                                 <div class="flex flex-col">
-                                    <span class="text-lg font-medium text-anthracite tracking-tight">Rooibos Digestivo</span>
+                                    <span class="text-lg font-medium text-anthracite tracking-tight"><span class="mr-2">✨</span>Rooibos Digestivo</span>
                                 </div>
                             </div>
                         </div>
@@ -195,105 +221,107 @@
             <!-- Tisane & Infusi -->
             <div class="w-full">
                 <div class="flex items-center gap-3 mb-4 pl-4">
-                    <i data-lucide="droplets" class="w-6 h-6 text-gray-900 stroke-[1.5]"></i>
+                    <div class="p-2 bg-gray-100 rounded-full">
+                        <i data-lucide="droplets" class="w-5 h-5 text-gray-900 stroke-[1.5]"></i>
+                    </div>
                     <h2 class="text-2xl font-semibold text-anthracite tracking-tight">Tisane & Infusi</h2>
                 </div>
-                <div class="bg-apple-gray rounded-apple p-8 shadow-[0_2px_20px_rgba(0,0,0,0.02)] transition-transform duration-500 hover:scale-[1.01]">
+                <div class="bg-apple-gray rounded-apple p-8 shadow-[0_2px_20px_rgba(0,0,0,0.02)] hover:shadow-lg transition-all duration-500">
                     <div class="flex flex-col">
-                        <div class="flex flex-col">
-                            <div class="flex justify-between items-center py-4 pr-2">
+                        <div class="flex flex-col group cursor-default">
+                            <div class="flex justify-between items-center py-4 pr-2 transition-colors duration-300 group-hover:bg-white/50 rounded-xl px-2 -mx-2">
                                 <div class="flex flex-col">
-                                    <span class="text-lg font-medium text-anthracite tracking-tight">Tè Depurativo</span>
-                                    <span class="text-sm text-gray-500 mt-0.5 font-light">con cannella, anice e salvia</span>
+                                    <span class="text-lg font-medium text-anthracite tracking-tight"><span class="mr-2">🧘</span>Tè Depurativo</span>
+                                    <span class="text-sm text-gray-500 mt-0.5 font-light ml-8">con cannella, anice e salvia</span>
                                 </div>
                             </div>
-                            <div class="h-[1px] bg-gray-200 w-full"></div>
+                            <div class="h-[1px] bg-gray-200 w-full ml-8 opacity-70"></div>
                         </div>
-                        <div class="flex flex-col">
-                            <div class="flex justify-between items-center py-4 pr-2">
+                        <div class="flex flex-col group cursor-default">
+                            <div class="flex justify-between items-center py-4 pr-2 transition-colors duration-300 group-hover:bg-white/50 rounded-xl px-2 -mx-2">
                                 <div class="flex flex-col">
-                                    <span class="text-lg font-medium text-anthracite tracking-tight">Infuso Rilassante</span>
-                                    <span class="text-sm text-gray-500 mt-0.5 font-light">lavanda, Melissa</span>
+                                    <span class="text-lg font-medium text-anthracite tracking-tight"><span class="mr-2">😴</span>Infuso Rilassante</span>
+                                    <span class="text-sm text-gray-500 mt-0.5 font-light ml-8">lavanda, Melissa</span>
                                 </div>
                             </div>
-                            <div class="h-[1px] bg-gray-200 w-full"></div>
+                            <div class="h-[1px] bg-gray-200 w-full ml-8 opacity-70"></div>
                         </div>
-                        <div class="flex flex-col">
-                            <div class="flex justify-between items-center py-4 pr-2">
+                        <div class="flex flex-col group cursor-default">
+                            <div class="flex justify-between items-center py-4 pr-2 transition-colors duration-300 group-hover:bg-white/50 rounded-xl px-2 -mx-2">
                                 <div class="flex flex-col">
-                                    <span class="text-lg font-medium text-anthracite tracking-tight">Tenero Brownie</span>
-                                    <span class="text-sm text-gray-500 mt-0.5 font-light">cacao</span>
+                                    <span class="text-lg font-medium text-anthracite tracking-tight"><span class="mr-2">🍫</span>Tenero Brownie</span>
+                                    <span class="text-sm text-gray-500 mt-0.5 font-light ml-8">cacao</span>
                                 </div>
                             </div>
-                            <div class="h-[1px] bg-gray-200 w-full"></div>
+                            <div class="h-[1px] bg-gray-200 w-full ml-8 opacity-70"></div>
                         </div>
-                        <div class="flex flex-col">
-                            <div class="flex justify-between items-center py-4 pr-2">
+                        <div class="flex flex-col group cursor-default">
+                            <div class="flex justify-between items-center py-4 pr-2 transition-colors duration-300 group-hover:bg-white/50 rounded-xl px-2 -mx-2">
                                 <div class="flex flex-col">
-                                    <span class="text-lg font-medium text-anthracite tracking-tight">Infuso Cacao</span>
-                                    <span class="text-sm text-gray-500 mt-0.5 font-light">cannella, zenzero</span>
+                                    <span class="text-lg font-medium text-anthracite tracking-tight"><span class="mr-2">🍪</span>Infuso Cacao</span>
+                                    <span class="text-sm text-gray-500 mt-0.5 font-light ml-8">cannella, zenzero</span>
                                 </div>
                             </div>
-                            <div class="h-[1px] bg-gray-200 w-full"></div>
+                            <div class="h-[1px] bg-gray-200 w-full ml-8 opacity-70"></div>
                         </div>
-                        <div class="flex flex-col">
-                            <div class="flex justify-between items-center py-4 pr-2">
+                        <div class="flex flex-col group cursor-default">
+                            <div class="flex justify-between items-center py-4 pr-2 transition-colors duration-300 group-hover:bg-white/50 rounded-xl px-2 -mx-2">
                                 <div class="flex flex-col">
-                                    <span class="text-lg font-medium text-anthracite tracking-tight">Infuso Esotico</span>
-                                    <span class="text-sm text-gray-500 mt-0.5 font-light">ananas, mela, cocco, banana, lavanda, petali di rosa</span>
+                                    <span class="text-lg font-medium text-anthracite tracking-tight"><span class="mr-2">🏝️</span>Infuso Esotico</span>
+                                    <span class="text-sm text-gray-500 mt-0.5 font-light ml-8">ananas, mela, cocco, banana, lavanda, petali di rosa</span>
                                 </div>
                             </div>
-                            <div class="h-[1px] bg-gray-200 w-full"></div>
+                            <div class="h-[1px] bg-gray-200 w-full ml-8 opacity-70"></div>
                         </div>
-                        <div class="flex flex-col">
-                            <div class="flex justify-between items-center py-4 pr-2">
+                        <div class="flex flex-col group cursor-default">
+                            <div class="flex justify-between items-center py-4 pr-2 transition-colors duration-300 group-hover:bg-white/50 rounded-xl px-2 -mx-2">
                                 <div class="flex flex-col">
-                                    <span class="text-lg font-medium text-anthracite tracking-tight">Infuso Kiwi & Fragola</span>
+                                    <span class="text-lg font-medium text-anthracite tracking-tight"><span class="mr-2">🥝</span>Infuso Kiwi & Fragola</span>
                                 </div>
                             </div>
-                            <div class="h-[1px] bg-gray-200 w-full"></div>
+                            <div class="h-[1px] bg-gray-200 w-full ml-8 opacity-70"></div>
                         </div>
-                        <div class="flex flex-col">
-                            <div class="flex justify-between items-center py-4 pr-2">
+                        <div class="flex flex-col group cursor-default">
+                            <div class="flex justify-between items-center py-4 pr-2 transition-colors duration-300 group-hover:bg-white/50 rounded-xl px-2 -mx-2">
                                 <div class="flex flex-col">
-                                    <span class="text-lg font-medium text-anthracite tracking-tight">Infuso Benessere</span>
-                                    <span class="text-sm text-gray-500 mt-0.5 font-light">finocchio, comino, menta, rosmarino, tarassaco, Melissa, liquirizia</span>
+                                    <span class="text-lg font-medium text-anthracite tracking-tight"><span class="mr-2">💆</span>Infuso Benessere</span>
+                                    <span class="text-sm text-gray-500 mt-0.5 font-light ml-8">finocchio, comino, menta, rosmarino, tarassaco, Melissa, liquirizia</span>
                                 </div>
                             </div>
-                            <div class="h-[1px] bg-gray-200 w-full"></div>
+                            <div class="h-[1px] bg-gray-200 w-full ml-8 opacity-70"></div>
                         </div>
-                        <div class="flex flex-col">
-                            <div class="flex justify-between items-center py-4 pr-2">
+                        <div class="flex flex-col group cursor-default">
+                            <div class="flex justify-between items-center py-4 pr-2 transition-colors duration-300 group-hover:bg-white/50 rounded-xl px-2 -mx-2">
                                 <div class="flex flex-col">
-                                    <span class="text-lg font-medium text-anthracite tracking-tight">Infuso Gelato di Mango</span>
-                                    <span class="text-sm text-gray-500 mt-0.5 font-light">ananas, carota, albicocca</span>
+                                    <span class="text-lg font-medium text-anthracite tracking-tight"><span class="mr-2">🥭</span>Infuso Gelato di Mango</span>
+                                    <span class="text-sm text-gray-500 mt-0.5 font-light ml-8">ananas, carota, albicocca</span>
                                 </div>
                             </div>
-                            <div class="h-[1px] bg-gray-200 w-full"></div>
+                            <div class="h-[1px] bg-gray-200 w-full ml-8 opacity-70"></div>
                         </div>
-                        <div class="flex flex-col">
-                            <div class="flex justify-between items-center py-4 pr-2">
+                        <div class="flex flex-col group cursor-default">
+                            <div class="flex justify-between items-center py-4 pr-2 transition-colors duration-300 group-hover:bg-white/50 rounded-xl px-2 -mx-2">
                                 <div class="flex flex-col">
-                                    <span class="text-lg font-medium text-anthracite tracking-tight">Infuso Uva & Mela</span>
-                                    <span class="text-sm text-gray-500 mt-0.5 font-light">arancia</span>
+                                    <span class="text-lg font-medium text-anthracite tracking-tight"><span class="mr-2">🍇</span>Infuso Uva & Mela</span>
+                                    <span class="text-sm text-gray-500 mt-0.5 font-light ml-8">arancia</span>
                                 </div>
                             </div>
-                            <div class="h-[1px] bg-gray-200 w-full"></div>
+                            <div class="h-[1px] bg-gray-200 w-full ml-8 opacity-70"></div>
                         </div>
-                        <div class="flex flex-col">
-                            <div class="flex justify-between items-center py-4 pr-2">
+                        <div class="flex flex-col group cursor-default">
+                            <div class="flex justify-between items-center py-4 pr-2 transition-colors duration-300 group-hover:bg-white/50 rounded-xl px-2 -mx-2">
                                 <div class="flex flex-col">
-                                    <span class="text-lg font-medium text-anthracite tracking-tight">Infuso Frutti di Bosco</span>
-                                    <span class="text-sm text-gray-500 mt-0.5 font-light">ibisco, uva, mela, more, ciliegia, lampone, fragola</span>
+                                    <span class="text-lg font-medium text-anthracite tracking-tight"><span class="mr-2">🫐</span>Infuso Frutti di Bosco</span>
+                                    <span class="text-sm text-gray-500 mt-0.5 font-light ml-8">ibisco, uva, mela, more, ciliegia, lampone, fragola</span>
                                 </div>
                             </div>
-                            <div class="h-[1px] bg-gray-200 w-full"></div>
+                            <div class="h-[1px] bg-gray-200 w-full ml-8 opacity-70"></div>
                         </div>
-                        <div class="flex flex-col">
-                            <div class="flex justify-between items-center py-4 pr-2">
+                        <div class="flex flex-col group cursor-default">
+                            <div class="flex justify-between items-center py-4 pr-2 transition-colors duration-300 group-hover:bg-white/50 rounded-xl px-2 -mx-2">
                                 <div class="flex flex-col">
-                                    <span class="text-lg font-medium text-anthracite tracking-tight">Infuso Fresco Fruttato</span>
-                                    <span class="text-sm text-gray-500 mt-0.5 font-light">mela, menta, limone, papaya, arancia, kiwi</span>
+                                    <span class="text-lg font-medium text-anthracite tracking-tight"><span class="mr-2">🍎</span>Infuso Fresco Fruttato</span>
+                                    <span class="text-sm text-gray-500 mt-0.5 font-light ml-8">mela, menta, limone, papaya, arancia, kiwi</span>
                                 </div>
                             </div>
                         </div>
@@ -304,34 +332,36 @@
             <!-- Un tocco di dolcezza -->
             <div class="w-full">
                 <div class="flex items-center gap-3 mb-4 pl-4">
-                    <i data-lucide="candy" class="w-6 h-6 text-gray-900 stroke-[1.5]"></i>
+                    <div class="p-2 bg-gray-100 rounded-full">
+                        <i data-lucide="candy" class="w-5 h-5 text-gray-900 stroke-[1.5]"></i>
+                    </div>
                     <h2 class="text-2xl font-semibold text-anthracite tracking-tight">Un tocco di dolcezza</h2>
                 </div>
-                <div class="bg-apple-gray rounded-apple p-8 shadow-[0_2px_20px_rgba(0,0,0,0.02)] transition-transform duration-500 hover:scale-[1.01]">
+                <div class="bg-apple-gray rounded-apple p-8 shadow-[0_2px_20px_rgba(0,0,0,0.02)] hover:shadow-lg transition-all duration-500">
                     <div class="flex flex-col">
-                        <div class="flex flex-col">
-                            <div class="flex justify-between items-center py-4 pr-2">
+                        <div class="flex flex-col group cursor-default">
+                            <div class="flex justify-between items-center py-4 pr-2 transition-colors duration-300 group-hover:bg-white/50 rounded-xl px-2 -mx-2">
                                 <div class="flex flex-col">
-                                    <span class="text-lg font-medium text-anthracite tracking-tight">Zucchero di Canna</span>
-                                    <span class="text-sm text-gray-500 mt-0.5 font-light">Integrale grezzo</span>
+                                    <span class="text-lg font-medium text-anthracite tracking-tight"><span class="mr-2">🥢</span>Zucchero di Canna</span>
+                                    <span class="text-sm text-gray-500 mt-0.5 font-light ml-8">Integrale grezzo</span>
                                 </div>
                             </div>
-                            <div class="h-[1px] bg-gray-200 w-full"></div>
+                            <div class="h-[1px] bg-gray-200 w-full ml-8 opacity-70"></div>
                         </div>
-                        <div class="flex flex-col">
-                            <div class="flex justify-between items-center py-4 pr-2">
+                        <div class="flex flex-col group cursor-default">
+                            <div class="flex justify-between items-center py-4 pr-2 transition-colors duration-300 group-hover:bg-white/50 rounded-xl px-2 -mx-2">
                                 <div class="flex flex-col">
-                                    <span class="text-lg font-medium text-anthracite tracking-tight">Zucchero Bianco</span>
-                                    <span class="text-sm text-gray-500 mt-0.5 font-light">Classico raffinato</span>
+                                    <span class="text-lg font-medium text-anthracite tracking-tight"><span class="mr-2">🧂</span>Zucchero Bianco</span>
+                                    <span class="text-sm text-gray-500 mt-0.5 font-light ml-8">Classico raffinato</span>
                                 </div>
                             </div>
-                            <div class="h-[1px] bg-gray-200 w-full"></div>
+                            <div class="h-[1px] bg-gray-200 w-full ml-8 opacity-70"></div>
                         </div>
-                        <div class="flex flex-col">
-                            <div class="flex justify-between items-center py-4 pr-2">
+                        <div class="flex flex-col group cursor-default">
+                            <div class="flex justify-between items-center py-4 pr-2 transition-colors duration-300 group-hover:bg-white/50 rounded-xl px-2 -mx-2">
                                 <div class="flex flex-col">
-                                    <span class="text-lg font-medium text-anthracite tracking-tight">Miele d’Acacia</span>
-                                    <span class="text-sm text-gray-500 mt-0.5 font-light">Naturale e delicato</span>
+                                    <span class="text-lg font-medium text-anthracite tracking-tight"><span class="mr-2">🍯</span>Miele d’Acacia</span>
+                                    <span class="text-sm text-gray-500 mt-0.5 font-light ml-8">Naturale e delicato</span>
                                 </div>
                             </div>
                         </div>
@@ -343,7 +373,12 @@
 
         <!-- Footer -->
         <footer class="mt-20 text-center text-gray-300 pb-10">
-            <p class="text-xs font-light">© 2024 Beautrì</p>
+            <!-- Copyright removed as requested -->
+            <div class="flex items-center justify-center gap-2 opacity-30">
+                <div class="h-px w-12 bg-gray-400"></div>
+                <span class="text-xs font-light tracking-widest uppercase">Beautrì Menu</span>
+                <div class="h-px w-12 bg-gray-400"></div>
+            </div>
         </footer>
 
     </div>
