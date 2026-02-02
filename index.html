@@ -98,14 +98,16 @@
         <div class="max-w-xl mx-auto px-6">
             
             <!-- Top Bar -->
-            <header class="flex items-center justify-between mb-2">
-                <div class="flex items-center gap-3">
-                   <div id="header-icon-container" class="transition-all duration-300">
-                       <!-- Injected by JS: Sparkle Icon OR Back Button -->
+            <header class="mb-4">
+                <div class="flex items-start gap-3">
+                   <div id="header-icon-container" class="transition-all duration-300 mt-1 shrink-0 hidden">
+                       <!-- Injected by JS: Sparkle Icon removed on home, Back Button shown on inner pages -->
                    </div>
-                   <div>
-                      <h1 class="text-xl font-bold tracking-tight text-gray-900">Beautrì</h1>
-                      <p id="header-subtitle" class="text-xs text-gray-500 font-medium transition-opacity duration-300">Una coccola per te</p>
+                   <div class="flex-1">
+                      <p id="header-subtitle" class="text-xl font-light text-anthracite leading-snug transition-all duration-300">
+                        Ogni percorso da <span class="font-bold text-brand-gold">Beautrì</span> è unico, come te.
+                        <span class="block mt-2 text-sm text-gray-500 font-normal leading-relaxed">Quale dettaglio renderebbe la tua esperienza di oggi <span class="text-brand-gold font-bold">indimenticabile</span>?</span>
+                      </p>
                    </div>
                 </div>
             </header>
@@ -229,17 +231,45 @@
             renderHeaderIcon() {
                 const container = document.getElementById('header-icon-container');
                 if (this.state.view === 'home') {
-                    container.innerHTML = `
-                        <div class="p-2.5 bg-yellow-50 rounded-xl rotate-3 shadow-sm border border-yellow-100">
-                           <i data-lucide="sparkles" class="w-5 h-5 text-brand-gold fill-brand-gold/20"></i>
-                        </div>
-                    `;
+                    // Simbolo rimosso come richiesto
+                    container.innerHTML = '';
+                    container.classList.add('hidden');
                 } else {
+                    container.classList.remove('hidden');
                     container.innerHTML = `
                         <button onclick="app.setView('home')" class="p-2.5 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors active:scale-95 flex items-center justify-center">
                            <i data-lucide="chevron-left" class="w-5 h-5 text-anthracite"></i>
                         </button>
                     `;
+                }
+            },
+
+            getCategoryStyle(id) {
+                switch(id) {
+                    case 'coffee':
+                        return {
+                            container: 'bg-orange-50/50 border-orange-100 hover:border-orange-200',
+                            iconBox: 'bg-orange-100 text-orange-600',
+                            iconColor: 'text-orange-600'
+                        };
+                    case 'tea':
+                        return {
+                            container: 'bg-emerald-50/50 border-emerald-100 hover:border-emerald-200',
+                            iconBox: 'bg-emerald-100 text-emerald-600',
+                            iconColor: 'text-emerald-600'
+                        };
+                    case 'infusion':
+                        return {
+                            container: 'bg-violet-50/50 border-violet-100 hover:border-violet-200',
+                            iconBox: 'bg-violet-100 text-violet-600',
+                            iconColor: 'text-violet-600'
+                        };
+                    default:
+                        return {
+                            container: 'bg-white border-gray-100',
+                            iconBox: 'bg-brand-gold/10 text-brand-gold',
+                            iconColor: 'text-brand-gold'
+                        };
                 }
             },
 
@@ -256,18 +286,20 @@
                     gridDiv.className = 'grid gap-4 animate-fade-in pt-4';
                     
                     mainCategories.forEach((cat, index) => {
+                       const styles = this.getCategoryStyle(cat.id);
+                       
                        gridDiv.innerHTML += `
                            <button
                              onclick="app.setView('${cat.id}')"
-                             class="group relative flex items-center p-6 bg-white rounded-apple border border-gray-100 shadow-sm transition-all duration-300 hover:shadow-md active:scale-[0.98] text-left w-full"
+                             class="group relative flex items-center p-6 rounded-apple border shadow-sm transition-all duration-300 hover:shadow-md active:scale-[0.98] text-left w-full ${styles.container}"
                              style="animation-delay: ${index * 50}ms"
                            >
-                             <div class="p-4 bg-brand-gold/10 rounded-2xl mr-5 group-hover:bg-brand-gold/20 transition-colors">
-                                <i data-lucide="${cat.iconName}" class="w-8 h-8 text-brand-gold"></i>
+                             <div class="p-4 rounded-2xl mr-5 transition-colors ${styles.iconBox}">
+                                <i data-lucide="${cat.iconName}" class="w-8 h-8 ${styles.iconColor}"></i>
                              </div>
                              <div>
                                <h3 class="text-lg font-bold text-anthracite">${cat.label}</h3>
-                               <p class="text-sm text-gray-400 mt-1">Scopri di più</p>
+                               <p class="text-sm text-gray-500 mt-1">Scopri di più</p>
                              </div>
                            </button>
                        `; 
