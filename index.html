@@ -2,16 +2,24 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="Menu digitale elegante per Beautrì">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    
     <title>Beautrì - Menu</title>
+    
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <script>
       tailwind.config = {
@@ -26,7 +34,22 @@
               'brand-gold': '#D4AF37',
             },
             borderRadius: {
-              'apple': '2rem',
+              'apple': '1.5rem',
+            },
+            keyframes: {
+              fadeIn: {
+                '0%': { opacity: '0', transform: 'translateY(10px)' },
+                '100%': { opacity: '1', transform: 'translateY(0)' },
+              },
+              pop: {
+                '0%': { transform: 'scale(1)' },
+                '50%': { transform: 'scale(1.2)' },
+                '100%': { transform: 'scale(1)' },
+              }
+            },
+            animation: {
+              'fade-in': 'fadeIn 0.4s ease-out forwards',
+              'pop': 'pop 0.3s ease-in-out',
             }
           },
         },
@@ -37,17 +60,29 @@
         background-color: #ffffff;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
+        overscroll-behavior-y: none; /* Prevent bounce effect on mobile */
       }
-      /* Custom scrollbar */
-      ::-webkit-scrollbar {
-        width: 6px;
+      
+      * {
+        -webkit-tap-highlight-color: transparent;
       }
-      ::-webkit-scrollbar-track {
-        background: transparent; 
+      
+      html {
+        scroll-behavior: smooth;
       }
-      ::-webkit-scrollbar-thumb {
-        background: #e5e7eb; 
-        border-radius: 3px;
+
+      /* Hide scrollbar */
+      .no-scrollbar::-webkit-scrollbar {
+        display: none;
+      }
+      .no-scrollbar {
+        -ms-overflow-style: none; 
+        scrollbar-width: none;  
+      }
+
+      .mask-image-gradient {
+        mask-image: linear-gradient(to right, black 85%, transparent 100%);
+        -webkit-mask-image: linear-gradient(to right, black 85%, transparent 100%);
       }
     </style>
 <script type="importmap">
@@ -61,330 +96,372 @@
 }
 </script>
 </head>
-<body class="min-h-screen bg-gradient-to-b from-white to-gray-50 text-anthracite selection:bg-brand-gold/20">
-    <div class="max-w-xl mx-auto px-6 py-12 md:py-20">
-        
-        <!-- Header -->
-        <header class="flex flex-col items-center mb-16 text-center space-y-4">
-            <div class="p-3 bg-yellow-50 rounded-2xl mb-2 rotate-3 hover:rotate-6 transition-transform duration-500">
-                <i data-lucide="sparkles" class="w-8 h-8 text-brand-gold fill-brand-gold/20"></i>
-            </div>
-            <h1 class="text-4xl font-bold tracking-tight text-gray-900">Beautrì</h1>
-            <p class="text-lg font-light tracking-wide text-gray-500">Una coccola tutta per te</p>
-        </header>
+<body class="bg-gradient-to-b from-white to-gray-50 text-anthracite selection:bg-brand-gold/20 min-h-screen pb-20">
 
-        <!-- Main Content -->
-        <main class="space-y-10">
+    <!-- Sticky Header -->
+    <div id="sticky-header" class="sticky top-0 z-50 transition-all duration-300 bg-transparent pt-8 pb-4">
+        <div class="max-w-xl mx-auto px-6">
+            
+            <!-- Top Bar -->
+            <header class="flex items-center justify-between mb-6">
+                <div class="flex items-center gap-3">
+                   <div class="p-2.5 bg-yellow-50 rounded-xl rotate-3 shadow-sm border border-yellow-100">
+                      <i data-lucide="sparkles" class="w-5 h-5 text-brand-gold fill-brand-gold/20"></i>
+                   </div>
+                   <div>
+                      <h1 class="text-xl font-bold tracking-tight text-gray-900">Beautrì</h1>
+                      <p id="header-subtitle" class="text-xs text-gray-500 font-medium transition-opacity duration-300">Una coccola per te</p>
+                   </div>
+                </div>
+                
+                <button 
+                  onclick="app.setCategory('favorites')"
+                  id="btn-favorites-main"
+                  class="relative p-2.5 rounded-full transition-all duration-300 bg-gray-50 text-gray-400 hover:bg-gray-100 active:scale-95 border border-transparent"
+                >
+                  <i data-lucide="heart" class="w-5 h-5"></i>
+                  <span id="fav-badge" class="hidden absolute top-0 right-0 w-3 h-3 bg-red-500 rounded-full border-2 border-white animate-pop"></span>
+                </button>
+            </header>
 
-            <!-- Caffetteria -->
-            <div class="w-full">
-                <div class="flex items-center gap-3 mb-4 pl-4">
-                    <div class="p-2 bg-gray-100 rounded-full">
-                        <i data-lucide="coffee" class="w-5 h-5 text-gray-900 stroke-[1.5]"></i>
-                    </div>
-                    <h2 class="text-2xl font-semibold text-anthracite tracking-tight">Caffetteria</h2>
-                </div>
-                <div class="bg-apple-gray rounded-apple p-8 shadow-[0_2px_20px_rgba(0,0,0,0.02)] hover:shadow-lg transition-all duration-500">
-                    <div class="flex flex-col">
-                        <!-- Item -->
-                        <div class="flex flex-col group cursor-default">
-                            <div class="flex justify-between items-center py-4 pr-2 transition-colors duration-300 group-hover:bg-white/50 rounded-xl px-2 -mx-2">
-                                <div class="flex flex-col">
-                                    <span class="text-lg font-medium text-anthracite tracking-tight"><span class="mr-2">☕</span>Caffè</span>
-                                </div>
-                            </div>
-                            <div class="h-[1px] bg-gray-200 w-full ml-8 opacity-70"></div>
-                        </div>
-                        <!-- Item -->
-                        <div class="flex flex-col group cursor-default">
-                            <div class="flex justify-between items-center py-4 pr-2 transition-colors duration-300 group-hover:bg-white/50 rounded-xl px-2 -mx-2">
-                                <div class="flex flex-col">
-                                    <span class="text-lg font-medium text-anthracite tracking-tight"><span class="mr-2">☕</span>Caffè lungo</span>
-                                </div>
-                            </div>
-                            <div class="h-[1px] bg-gray-200 w-full ml-8 opacity-70"></div>
-                        </div>
-                        <!-- Item -->
-                        <div class="flex flex-col group cursor-default">
-                            <div class="flex justify-between items-center py-4 pr-2 transition-colors duration-300 group-hover:bg-white/50 rounded-xl px-2 -mx-2">
-                                <div class="flex flex-col">
-                                    <span class="text-lg font-medium text-anthracite tracking-tight"><span class="mr-2">☕</span>Caffè corto</span>
-                                </div>
-                            </div>
-                            <div class="h-[1px] bg-gray-200 w-full ml-8 opacity-70"></div>
-                        </div>
-                        <!-- Item (Moved Here) -->
-                        <div class="flex flex-col group cursor-default">
-                            <div class="flex justify-between items-center py-4 pr-2 transition-colors duration-300 group-hover:bg-white/50 rounded-xl px-2 -mx-2">
-                                <div class="flex flex-col">
-                                    <span class="text-lg font-medium text-anthracite tracking-tight"><span class="mr-2">🧊</span>Caffè macchiato freddo</span>
-                                </div>
-                            </div>
-                            <div class="h-[1px] bg-gray-200 w-full ml-8 opacity-70"></div>
-                        </div>
-                        <!-- Item -->
-                        <div class="flex flex-col group cursor-default">
-                            <div class="flex justify-between items-center py-4 pr-2 transition-colors duration-300 group-hover:bg-white/50 rounded-xl px-2 -mx-2">
-                                <div class="flex flex-col">
-                                    <span class="text-lg font-medium text-anthracite tracking-tight"><span class="mr-2">🇺🇸</span>Caffè americano</span>
-                                </div>
-                            </div>
-                            <div class="h-[1px] bg-gray-200 w-full ml-8 opacity-70"></div>
-                        </div>
-                        <!-- Item -->
-                        <div class="flex flex-col group cursor-default">
-                            <div class="flex justify-between items-center py-4 pr-2 transition-colors duration-300 group-hover:bg-white/50 rounded-xl px-2 -mx-2">
-                                <div class="flex flex-col">
-                                    <span class="text-lg font-medium text-anthracite tracking-tight"><span class="mr-2">🌰</span>Caffè con Nutella</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Mondo Tè -->
-            <div class="w-full">
-                <div class="flex items-center gap-3 mb-4 pl-4">
-                    <div class="p-2 bg-gray-100 rounded-full">
-                        <i data-lucide="leaf" class="w-5 h-5 text-gray-900 stroke-[1.5]"></i>
-                    </div>
-                    <h2 class="text-2xl font-semibold text-anthracite tracking-tight">Mondo Tè</h2>
-                </div>
-                <div class="bg-apple-gray rounded-apple p-8 shadow-[0_2px_20px_rgba(0,0,0,0.02)] hover:shadow-lg transition-all duration-500">
-                    <div class="flex flex-col">
-                        <div class="flex flex-col group cursor-default">
-                            <div class="flex justify-between items-center py-4 pr-2 transition-colors duration-300 group-hover:bg-white/50 rounded-xl px-2 -mx-2">
-                                <div class="flex flex-col">
-                                    <span class="text-lg font-medium text-anthracite tracking-tight"><span class="mr-2">🍂</span>Tè Bianco</span>
-                                    <span class="text-sm text-gray-500 mt-0.5 font-light ml-8">con cannella</span>
-                                </div>
-                            </div>
-                            <div class="h-[1px] bg-gray-200 w-full ml-8 opacity-70"></div>
-                        </div>
-                        <div class="flex flex-col group cursor-default">
-                            <div class="flex justify-between items-center py-4 pr-2 transition-colors duration-300 group-hover:bg-white/50 rounded-xl px-2 -mx-2">
-                                <div class="flex flex-col">
-                                    <span class="text-lg font-medium text-anthracite tracking-tight"><span class="mr-2">🫖</span>Rooibos</span>
-                                    <span class="text-sm text-gray-500 mt-0.5 font-light ml-8">con cannella</span>
-                                </div>
-                            </div>
-                            <div class="h-[1px] bg-gray-200 w-full ml-8 opacity-70"></div>
-                        </div>
-                        <div class="flex flex-col group cursor-default">
-                            <div class="flex justify-between items-center py-4 pr-2 transition-colors duration-300 group-hover:bg-white/50 rounded-xl px-2 -mx-2">
-                                <div class="flex flex-col">
-                                    <span class="text-lg font-medium text-anthracite tracking-tight"><span class="mr-2">🍋</span>Tè Verde</span>
-                                    <span class="text-sm text-gray-500 mt-0.5 font-light ml-8">al limone</span>
-                                </div>
-                            </div>
-                            <div class="h-[1px] bg-gray-200 w-full ml-8 opacity-70"></div>
-                        </div>
-                        <div class="flex flex-col group cursor-default">
-                            <div class="flex justify-between items-center py-4 pr-2 transition-colors duration-300 group-hover:bg-white/50 rounded-xl px-2 -mx-2">
-                                <div class="flex flex-col">
-                                    <span class="text-lg font-medium text-anthracite tracking-tight"><span class="mr-2">🌑</span>Tè Nero</span>
-                                    <span class="text-sm text-gray-500 mt-0.5 font-light ml-8">con cannella, cardamomo</span>
-                                </div>
-                            </div>
-                            <div class="h-[1px] bg-gray-200 w-full ml-8 opacity-70"></div>
-                        </div>
-                        <div class="flex flex-col group cursor-default">
-                            <div class="flex justify-between items-center py-4 pr-2 transition-colors duration-300 group-hover:bg-white/50 rounded-xl px-2 -mx-2">
-                                <div class="flex flex-col">
-                                    <span class="text-lg font-medium text-anthracite tracking-tight"><span class="mr-2">🌿</span>Tè Ecologico</span>
-                                    <span class="text-sm text-gray-500 mt-0.5 font-light ml-8">cannella, zenzero e cardamomo</span>
-                                </div>
-                            </div>
-                            <div class="h-[1px] bg-gray-200 w-full ml-8 opacity-70"></div>
-                        </div>
-                        <div class="flex flex-col group cursor-default">
-                            <div class="flex justify-between items-center py-4 pr-2 transition-colors duration-300 group-hover:bg-white/50 rounded-xl px-2 -mx-2">
-                                <div class="flex flex-col">
-                                    <span class="text-lg font-medium text-anthracite tracking-tight"><span class="mr-2">🔴</span>Tè Rosso</span>
-                                    <span class="text-sm text-gray-500 mt-0.5 font-light ml-8">ibisco e kiwi</span>
-                                </div>
-                            </div>
-                            <div class="h-[1px] bg-gray-200 w-full ml-8 opacity-70"></div>
-                        </div>
-                        <div class="flex flex-col group cursor-default">
-                            <div class="flex justify-between items-center py-4 pr-2 transition-colors duration-300 group-hover:bg-white/50 rounded-xl px-2 -mx-2">
-                                <div class="flex flex-col">
-                                    <span class="text-lg font-medium text-anthracite tracking-tight"><span class="mr-2">✨</span>Rooibos Digestivo</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Tisane & Infusi -->
-            <div class="w-full">
-                <div class="flex items-center gap-3 mb-4 pl-4">
-                    <div class="p-2 bg-gray-100 rounded-full">
-                        <i data-lucide="droplets" class="w-5 h-5 text-gray-900 stroke-[1.5]"></i>
-                    </div>
-                    <h2 class="text-2xl font-semibold text-anthracite tracking-tight">Tisane & Infusi</h2>
-                </div>
-                <div class="bg-apple-gray rounded-apple p-8 shadow-[0_2px_20px_rgba(0,0,0,0.02)] hover:shadow-lg transition-all duration-500">
-                    <div class="flex flex-col">
-                        <div class="flex flex-col group cursor-default">
-                            <div class="flex justify-between items-center py-4 pr-2 transition-colors duration-300 group-hover:bg-white/50 rounded-xl px-2 -mx-2">
-                                <div class="flex flex-col">
-                                    <span class="text-lg font-medium text-anthracite tracking-tight"><span class="mr-2">🧘</span>Tè Depurativo</span>
-                                    <span class="text-sm text-gray-500 mt-0.5 font-light ml-8">con cannella, anice e salvia</span>
-                                </div>
-                            </div>
-                            <div class="h-[1px] bg-gray-200 w-full ml-8 opacity-70"></div>
-                        </div>
-                        <div class="flex flex-col group cursor-default">
-                            <div class="flex justify-between items-center py-4 pr-2 transition-colors duration-300 group-hover:bg-white/50 rounded-xl px-2 -mx-2">
-                                <div class="flex flex-col">
-                                    <span class="text-lg font-medium text-anthracite tracking-tight"><span class="mr-2">😴</span>Infuso Rilassante</span>
-                                    <span class="text-sm text-gray-500 mt-0.5 font-light ml-8">lavanda, Melissa</span>
-                                </div>
-                            </div>
-                            <div class="h-[1px] bg-gray-200 w-full ml-8 opacity-70"></div>
-                        </div>
-                        <div class="flex flex-col group cursor-default">
-                            <div class="flex justify-between items-center py-4 pr-2 transition-colors duration-300 group-hover:bg-white/50 rounded-xl px-2 -mx-2">
-                                <div class="flex flex-col">
-                                    <span class="text-lg font-medium text-anthracite tracking-tight"><span class="mr-2">🍫</span>Tenero Brownie</span>
-                                    <span class="text-sm text-gray-500 mt-0.5 font-light ml-8">cacao</span>
-                                </div>
-                            </div>
-                            <div class="h-[1px] bg-gray-200 w-full ml-8 opacity-70"></div>
-                        </div>
-                        <div class="flex flex-col group cursor-default">
-                            <div class="flex justify-between items-center py-4 pr-2 transition-colors duration-300 group-hover:bg-white/50 rounded-xl px-2 -mx-2">
-                                <div class="flex flex-col">
-                                    <span class="text-lg font-medium text-anthracite tracking-tight"><span class="mr-2">🍪</span>Infuso Cacao</span>
-                                    <span class="text-sm text-gray-500 mt-0.5 font-light ml-8">cannella, zenzero</span>
-                                </div>
-                            </div>
-                            <div class="h-[1px] bg-gray-200 w-full ml-8 opacity-70"></div>
-                        </div>
-                        <div class="flex flex-col group cursor-default">
-                            <div class="flex justify-between items-center py-4 pr-2 transition-colors duration-300 group-hover:bg-white/50 rounded-xl px-2 -mx-2">
-                                <div class="flex flex-col">
-                                    <span class="text-lg font-medium text-anthracite tracking-tight"><span class="mr-2">🏝️</span>Infuso Esotico</span>
-                                    <span class="text-sm text-gray-500 mt-0.5 font-light ml-8">ananas, mela, cocco, banana, lavanda, petali di rosa</span>
-                                </div>
-                            </div>
-                            <div class="h-[1px] bg-gray-200 w-full ml-8 opacity-70"></div>
-                        </div>
-                        <div class="flex flex-col group cursor-default">
-                            <div class="flex justify-between items-center py-4 pr-2 transition-colors duration-300 group-hover:bg-white/50 rounded-xl px-2 -mx-2">
-                                <div class="flex flex-col">
-                                    <span class="text-lg font-medium text-anthracite tracking-tight"><span class="mr-2">🥝</span>Infuso Kiwi & Fragola</span>
-                                </div>
-                            </div>
-                            <div class="h-[1px] bg-gray-200 w-full ml-8 opacity-70"></div>
-                        </div>
-                        <div class="flex flex-col group cursor-default">
-                            <div class="flex justify-between items-center py-4 pr-2 transition-colors duration-300 group-hover:bg-white/50 rounded-xl px-2 -mx-2">
-                                <div class="flex flex-col">
-                                    <span class="text-lg font-medium text-anthracite tracking-tight"><span class="mr-2">💆</span>Infuso Benessere</span>
-                                    <span class="text-sm text-gray-500 mt-0.5 font-light ml-8">finocchio, comino, menta, rosmarino, tarassaco, Melissa, liquirizia</span>
-                                </div>
-                            </div>
-                            <div class="h-[1px] bg-gray-200 w-full ml-8 opacity-70"></div>
-                        </div>
-                        <div class="flex flex-col group cursor-default">
-                            <div class="flex justify-between items-center py-4 pr-2 transition-colors duration-300 group-hover:bg-white/50 rounded-xl px-2 -mx-2">
-                                <div class="flex flex-col">
-                                    <span class="text-lg font-medium text-anthracite tracking-tight"><span class="mr-2">🥭</span>Infuso Gelato di Mango</span>
-                                    <span class="text-sm text-gray-500 mt-0.5 font-light ml-8">ananas, carota, albicocca</span>
-                                </div>
-                            </div>
-                            <div class="h-[1px] bg-gray-200 w-full ml-8 opacity-70"></div>
-                        </div>
-                        <div class="flex flex-col group cursor-default">
-                            <div class="flex justify-between items-center py-4 pr-2 transition-colors duration-300 group-hover:bg-white/50 rounded-xl px-2 -mx-2">
-                                <div class="flex flex-col">
-                                    <span class="text-lg font-medium text-anthracite tracking-tight"><span class="mr-2">🍇</span>Infuso Uva & Mela</span>
-                                    <span class="text-sm text-gray-500 mt-0.5 font-light ml-8">arancia</span>
-                                </div>
-                            </div>
-                            <div class="h-[1px] bg-gray-200 w-full ml-8 opacity-70"></div>
-                        </div>
-                        <div class="flex flex-col group cursor-default">
-                            <div class="flex justify-between items-center py-4 pr-2 transition-colors duration-300 group-hover:bg-white/50 rounded-xl px-2 -mx-2">
-                                <div class="flex flex-col">
-                                    <span class="text-lg font-medium text-anthracite tracking-tight"><span class="mr-2">🫐</span>Infuso Frutti di Bosco</span>
-                                    <span class="text-sm text-gray-500 mt-0.5 font-light ml-8">ibisco, uva, mela, more, ciliegia, lampone, fragola</span>
-                                </div>
-                            </div>
-                            <div class="h-[1px] bg-gray-200 w-full ml-8 opacity-70"></div>
-                        </div>
-                        <div class="flex flex-col group cursor-default">
-                            <div class="flex justify-between items-center py-4 pr-2 transition-colors duration-300 group-hover:bg-white/50 rounded-xl px-2 -mx-2">
-                                <div class="flex flex-col">
-                                    <span class="text-lg font-medium text-anthracite tracking-tight"><span class="mr-2">🍎</span>Infuso Fresco Fruttato</span>
-                                    <span class="text-sm text-gray-500 mt-0.5 font-light ml-8">mela, menta, limone, papaya, arancia, kiwi</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Un tocco di dolcezza -->
-            <div class="w-full">
-                <div class="flex items-center gap-3 mb-4 pl-4">
-                    <div class="p-2 bg-gray-100 rounded-full">
-                        <i data-lucide="candy" class="w-5 h-5 text-gray-900 stroke-[1.5]"></i>
-                    </div>
-                    <h2 class="text-2xl font-semibold text-anthracite tracking-tight">Un tocco di dolcezza</h2>
-                </div>
-                <div class="bg-apple-gray rounded-apple p-8 shadow-[0_2px_20px_rgba(0,0,0,0.02)] hover:shadow-lg transition-all duration-500">
-                    <div class="flex flex-col">
-                        <div class="flex flex-col group cursor-default">
-                            <div class="flex justify-between items-center py-4 pr-2 transition-colors duration-300 group-hover:bg-white/50 rounded-xl px-2 -mx-2">
-                                <div class="flex flex-col">
-                                    <span class="text-lg font-medium text-anthracite tracking-tight"><span class="mr-2">🥢</span>Zucchero di Canna</span>
-                                    <span class="text-sm text-gray-500 mt-0.5 font-light ml-8">Integrale grezzo</span>
-                                </div>
-                            </div>
-                            <div class="h-[1px] bg-gray-200 w-full ml-8 opacity-70"></div>
-                        </div>
-                        <div class="flex flex-col group cursor-default">
-                            <div class="flex justify-between items-center py-4 pr-2 transition-colors duration-300 group-hover:bg-white/50 rounded-xl px-2 -mx-2">
-                                <div class="flex flex-col">
-                                    <span class="text-lg font-medium text-anthracite tracking-tight"><span class="mr-2">🧂</span>Zucchero Bianco</span>
-                                    <span class="text-sm text-gray-500 mt-0.5 font-light ml-8">Classico raffinato</span>
-                                </div>
-                            </div>
-                            <div class="h-[1px] bg-gray-200 w-full ml-8 opacity-70"></div>
-                        </div>
-                        <div class="flex flex-col group cursor-default">
-                            <div class="flex justify-between items-center py-4 pr-2 transition-colors duration-300 group-hover:bg-white/50 rounded-xl px-2 -mx-2">
-                                <div class="flex flex-col">
-                                    <span class="text-lg font-medium text-anthracite tracking-tight"><span class="mr-2">🍯</span>Miele d’Acacia</span>
-                                    <span class="text-sm text-gray-500 mt-0.5 font-light ml-8">Naturale e delicato</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </main>
-
-        <!-- Footer -->
-        <footer class="mt-20 text-center text-gray-300 pb-10">
-            <!-- Copyright removed as requested -->
-            <div class="flex items-center justify-center gap-2 opacity-30">
-                <div class="h-px w-12 bg-gray-400"></div>
-                <span class="text-xs font-light tracking-widest uppercase">Beautrì Menu</span>
-                <div class="h-px w-12 bg-gray-400"></div>
-            </div>
-        </footer>
-
+            <!-- Navigation Categories -->
+            <nav class="flex space-x-2 overflow-x-auto no-scrollbar pb-2 -mx-6 px-6 mask-image-gradient" id="category-nav">
+                <!-- Categories injected by JS -->
+            </nav>
+        </div>
     </div>
 
+    <!-- Main Content -->
+    <main class="max-w-xl mx-auto px-6 space-y-8 min-h-[60vh] mt-2">
+        <div id="menu-container" class="grid gap-6">
+            <!-- Items injected by JS -->
+        </div>
+
+        <!-- Empty State (Hidden by default) -->
+        <div id="empty-state" class="hidden flex-col items-center justify-center py-16 text-center text-gray-400 bg-white rounded-[2rem] border border-dashed border-gray-200 shadow-sm mx-auto w-full">
+             <div class="p-4 bg-gray-50 rounded-full mb-4">
+                <i data-lucide="heart" class="w-8 h-8 text-gray-300"></i>
+             </div>
+             <p class="text-lg font-semibold text-gray-600">Nessun preferito</p>
+             <p class="text-sm text-gray-400 mt-1 max-w-[200px]">Tocca il cuore sui prodotti per aggiungerli qui.</p>
+             <button onclick="app.setCategory('all')" class="mt-6 text-brand-gold font-semibold text-sm hover:underline uppercase tracking-wide">
+               Torna al menu
+             </button>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="mt-16 text-center opacity-40 pb-8">
+        <div class="flex items-center justify-center gap-3">
+          <div class="h-px w-8 bg-gray-300"></div>
+          <span class="text-[10px] font-semibold tracking-[0.2em] uppercase text-gray-500">Beautrì Menu</span>
+          <div class="h-px w-8 bg-gray-300"></div>
+        </div>
+    </footer>
+
+    <!-- Application Logic -->
     <script>
-        lucide.createIcons();
+        // --- DATA ---
+        const CATEGORIES = [
+            { id: 'coffee', label: 'Caffetteria', iconName: 'coffee' },
+            { id: 'tea', label: 'Mondo Tè', iconName: 'leaf' },
+            { id: 'infusion', label: 'Tisane & Infusi', iconName: 'droplets' },
+            { id: 'sweet', label: 'Dolcezza', iconName: 'candy' },
+        ];
+
+        const MENU_ITEMS = [
+            // Caffetteria
+            { id: 'c1', categoryId: 'coffee', icon: '☕', name: 'Caffè' },
+            { id: 'c2', categoryId: 'coffee', icon: '☕', name: 'Caffè lungo' },
+            { id: 'c3', categoryId: 'coffee', icon: '☕', name: 'Caffè corto' },
+            { id: 'c4', categoryId: 'coffee', icon: '🧊', name: 'Caffè macchiato freddo' },
+            { id: 'c5', categoryId: 'coffee', icon: '🇺🇸', name: 'Caffè americano' },
+            { id: 'c6', categoryId: 'coffee', icon: '🌰', name: 'Caffè con Nutella' },
+
+            // Mondo Tè
+            { id: 't1', categoryId: 'tea', icon: '🍂', name: 'Tè Bianco', ingredients: 'con cannella' },
+            { id: 't2', categoryId: 'tea', icon: '🫖', name: 'Rooibos', ingredients: 'con cannella' },
+            { id: 't3', categoryId: 'tea', icon: '🍋', name: 'Tè Verde', ingredients: 'al limone' },
+            { id: 't4', categoryId: 'tea', icon: '🌑', name: 'Tè Nero', ingredients: 'con cannella, cardamomo' },
+            { id: 't5', categoryId: 'tea', icon: '🌿', name: 'Tè Ecologico', ingredients: 'cannella, zenzero e cardamomo' },
+            { id: 't6', categoryId: 'tea', icon: '🔴', name: 'Tè Rosso', ingredients: 'ibisco e kiwi' },
+            { id: 't7', categoryId: 'tea', icon: '✨', name: 'Rooibos Digestivo' },
+
+            // Tisane & Infusi
+            { id: 'i1', categoryId: 'infusion', icon: '🧘', name: 'Tè Depurativo', ingredients: 'con cannella, anice e salvia' },
+            { id: 'i2', categoryId: 'infusion', icon: '😴', name: 'Infuso Rilassante', ingredients: 'lavanda, Melissa' },
+            { id: 'i3', categoryId: 'infusion', icon: '🍫', name: 'Tenero Brownie', ingredients: 'cacao' },
+            { id: 'i4', categoryId: 'infusion', icon: '🍪', name: 'Infuso Cacao', ingredients: 'cannella, zenzero' },
+            { id: 'i5', categoryId: 'infusion', icon: '🏝️', name: 'Infuso Esotico', ingredients: 'ananas, mela, cocco, banana, lavanda, petali di rosa' },
+            { id: 'i6', categoryId: 'infusion', icon: '🥝', name: 'Infuso Kiwi & Fragola' },
+            { id: 'i7', categoryId: 'infusion', icon: '💆', name: 'Infuso Benessere', ingredients: 'finocchio, comino, menta, rosmarino, tarassaco, Melissa, liquirizia' },
+            { id: 'i8', categoryId: 'infusion', icon: '🥭', name: 'Infuso Gelato di Mango', ingredients: 'ananas, carota, albicocca' },
+            { id: 'i9', categoryId: 'infusion', icon: '🍇', name: 'Infuso Uva & Mela', ingredients: 'arancia' },
+            { id: 'i10', categoryId: 'infusion', icon: '🫐', name: 'Infuso Frutti di Bosco', ingredients: 'ibisco, uva, mela, more, ciliegia, lampone, fragola' },
+            { id: 'i11', categoryId: 'infusion', icon: '🍎', name: 'Infuso Fresco Fruttato', ingredients: 'mela, menta, limone, papaya, arancia, kiwi' },
+
+            // Dolcezza
+            { id: 's1', categoryId: 'sweet', icon: '🥢', name: 'Zucchero di Canna', ingredients: 'Integrale grezzo' },
+            { id: 's2', categoryId: 'sweet', icon: '🧂', name: 'Zucchero Bianco', ingredients: 'Classico raffinato' },
+            { id: 's3', categoryId: 'sweet', icon: '🍯', name: 'Miele d’Acacia', ingredients: 'Naturale e delicato' },
+        ];
+
+        // --- APP LOGIC ---
+        const app = {
+            state: {
+                activeCategory: 'all',
+                favorites: new Set(),
+                scrolled: false
+            },
+
+            init() {
+                // Load favorites from local storage
+                const savedFavs = localStorage.getItem('beautri_favorites');
+                if (savedFavs) {
+                    this.state.favorites = new Set(JSON.parse(savedFavs));
+                }
+
+                this.setupScrollListener();
+                this.render();
+                
+                // Initialize Lucide icons immediately
+                lucide.createIcons();
+            },
+
+            setupScrollListener() {
+                window.addEventListener('scroll', () => {
+                    const isScrolled = window.scrollY > 20;
+                    if (this.state.scrolled !== isScrolled) {
+                        this.state.scrolled = isScrolled;
+                        this.updateHeaderStyle();
+                    }
+                });
+            },
+
+            updateHeaderStyle() {
+                const header = document.getElementById('sticky-header');
+                const subtitle = document.getElementById('header-subtitle');
+                
+                if (this.state.scrolled) {
+                    header.classList.remove('bg-transparent', 'pt-8', 'pb-4');
+                    header.classList.add('bg-white/95', 'backdrop-blur-md', 'shadow-sm', 'pt-4', 'pb-2');
+                    subtitle.classList.add('opacity-0');
+                    setTimeout(() => subtitle.classList.add('hidden'), 300);
+                } else {
+                    header.classList.add('bg-transparent', 'pt-8', 'pb-4');
+                    header.classList.remove('bg-white/95', 'backdrop-blur-md', 'shadow-sm', 'pt-4', 'pb-2');
+                    subtitle.classList.remove('hidden');
+                    setTimeout(() => subtitle.classList.remove('opacity-0'), 10);
+                }
+            },
+
+            toggleFavorite(id, event) {
+                if (event) event.stopPropagation();
+
+                if (this.state.favorites.has(id)) {
+                    this.state.favorites.delete(id);
+                } else {
+                    this.state.favorites.add(id);
+                    // Add subtle haptic feedback if available
+                    if (navigator.vibrate) navigator.vibrate(10);
+                }
+
+                // Save to local storage
+                localStorage.setItem('beautri_favorites', JSON.stringify([...this.state.favorites]));
+                
+                // If we are in "favorites" view and remove one, re-render to remove it from list
+                // If we are in "all" or specific category, just re-render to update the heart icon
+                this.render();
+            },
+
+            setCategory(catId) {
+                this.state.activeCategory = catId;
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                this.render();
+            },
+
+            getFilteredItems() {
+                if (this.state.activeCategory === 'all') return MENU_ITEMS;
+                if (this.state.activeCategory === 'favorites') {
+                    return MENU_ITEMS.filter(item => this.state.favorites.has(item.id));
+                }
+                return MENU_ITEMS.filter(item => item.categoryId === this.state.activeCategory);
+            },
+
+            render() {
+                this.renderNav();
+                this.renderContent();
+                this.updateFavoritesButton();
+                lucide.createIcons();
+            },
+
+            updateFavoritesButton() {
+                const btn = document.getElementById('btn-favorites-main');
+                const badge = document.getElementById('fav-badge');
+                const icon = btn.querySelector('i');
+                const isFavMode = this.state.activeCategory === 'favorites';
+
+                // Style logic
+                if (isFavMode) {
+                    btn.classList.remove('bg-gray-50', 'text-gray-400', 'hover:bg-gray-100');
+                    btn.classList.add('bg-red-50', 'text-red-500', 'border-red-100');
+                    icon.setAttribute('fill', 'currentColor');
+                } else {
+                    btn.classList.add('bg-gray-50', 'text-gray-400', 'hover:bg-gray-100');
+                    btn.classList.remove('bg-red-50', 'text-red-500', 'border-red-100');
+                    icon.removeAttribute('fill');
+                }
+
+                // Badge logic
+                if (this.state.favorites.size > 0 && !isFavMode) {
+                    badge.classList.remove('hidden');
+                } else {
+                    badge.classList.add('hidden');
+                }
+            },
+
+            renderNav() {
+                const nav = document.getElementById('category-nav');
+                const activeClass = 'bg-anthracite text-white border-anthracite shadow-lg scale-105 font-semibold';
+                const inactiveClass = 'bg-white text-gray-500 border-gray-200 hover:border-gray-300 hover:bg-gray-50 font-medium';
+                
+                // All button
+                let html = `
+                    <button
+                        onclick="app.setCategory('all')"
+                        class="flex-shrink-0 px-5 py-2.5 rounded-full text-sm transition-all duration-300 border ${this.state.activeCategory === 'all' ? activeClass : inactiveClass}"
+                    >
+                        Tutti
+                    </button>
+                `;
+
+                CATEGORIES.forEach(cat => {
+                    const isActive = this.state.activeCategory === cat.id;
+                    const activeCatClass = 'bg-brand-gold text-white border-brand-gold shadow-lg scale-105 font-semibold';
+                    
+                    html += `
+                        <button
+                            onclick="app.setCategory('${cat.id}')"
+                            class="flex-shrink-0 flex items-center gap-2 px-5 py-2.5 rounded-full text-sm transition-all duration-300 border ${isActive ? activeCatClass : inactiveClass}"
+                        >
+                            <i data-lucide="${cat.iconName}" class="w-4 h-4"></i>
+                            ${cat.label}
+                        </button>
+                    `;
+                });
+
+                nav.innerHTML = html;
+            },
+
+            renderContent() {
+                const container = document.getElementById('menu-container');
+                const emptyState = document.getElementById('empty-state');
+                
+                // Reset container
+                container.innerHTML = '';
+                
+                // Handle Favorites Empty State
+                if (this.state.activeCategory === 'favorites' && this.state.favorites.size === 0) {
+                    container.classList.add('hidden');
+                    emptyState.classList.remove('hidden');
+                    emptyState.classList.add('flex');
+                    return;
+                }
+                
+                emptyState.classList.add('hidden');
+                emptyState.classList.remove('flex');
+                container.classList.remove('hidden');
+
+                if (this.state.activeCategory === 'all') {
+                    // Group by category
+                    CATEGORIES.forEach((cat, index) => {
+                        const items = MENU_ITEMS.filter(i => i.categoryId === cat.id);
+                        if (items.length === 0) return;
+
+                        const section = document.createElement('section');
+                        section.className = 'animate-fade-in';
+                        section.style.animationDelay = `${index * 50}ms`;
+                        
+                        // Header section
+                        section.innerHTML = `
+                            <div class="flex items-center gap-2.5 mb-5 mt-2 px-1">
+                                <div class="p-1.5 bg-brand-gold/10 rounded-lg">
+                                    <i data-lucide="${cat.iconName}" class="w-4 h-4 text-brand-gold"></i>
+                                </div>
+                                <h2 class="text-lg font-bold text-gray-800 tracking-tight">${cat.label}</h2>
+                            </div>
+                            <div class="grid gap-4">
+                                ${items.map(item => this.createCardHtml(item)).join('')}
+                            </div>
+                        `;
+                        container.appendChild(section);
+                    });
+                } else {
+                    // Single list (Category or Favorites)
+                    const items = this.getFilteredItems();
+                    
+                    if (items.length === 0 && this.state.activeCategory !== 'favorites') {
+                        container.innerHTML = `<div class="text-center py-10 text-gray-400">Nessun prodotto disponibile.</div>`;
+                        return;
+                    }
+
+                    // Title for specific view
+                    const titleDiv = document.createElement('div');
+                    const titleText = this.state.activeCategory === 'favorites' ? 'I tuoi Preferiti' : CATEGORIES.find(c => c.id === this.state.activeCategory)?.label;
+                    titleDiv.className = 'flex items-center justify-between pt-2 pb-2 mb-2 px-1 animate-fade-in';
+                    titleDiv.innerHTML = `
+                        <h2 class="text-lg font-bold text-gray-800">${titleText}</h2>
+                        <span class="text-xs font-semibold text-gray-500 bg-gray-100 px-2.5 py-1 rounded-lg">
+                            ${items.length}
+                        </span>
+                    `;
+                    container.appendChild(titleDiv);
+
+                    // Grid
+                    const gridDiv = document.createElement('div');
+                    gridDiv.className = 'grid gap-4 animate-fade-in';
+                    gridDiv.innerHTML = items.map(item => this.createCardHtml(item)).join('');
+                    container.appendChild(gridDiv);
+                }
+            },
+
+            createCardHtml(item) {
+                const isFav = this.state.favorites.has(item.id);
+                const heartClass = isFav ? 'text-red-500 bg-red-50 fill-red-500' : 'text-gray-300 hover:text-red-400 hover:bg-gray-50';
+                const heartFill = isFav ? 'fill="currentColor"' : '';
+
+                return `
+                    <div class="group relative flex flex-col p-5 bg-white rounded-apple border border-gray-100 shadow-sm transition-all duration-300 active:scale-[0.98]">
+                        <div class="flex justify-between items-start">
+                            <div class="flex items-start gap-4">
+                                <span class="text-3xl bg-gray-50 w-12 h-12 flex items-center justify-center rounded-2xl shrink-0 shadow-inner">
+                                    ${item.icon}
+                                </span>
+                                <div class="pt-0.5">
+                                    <h3 class="text-base font-bold text-anthracite leading-tight mb-1">${item.name}</h3>
+                                    ${item.ingredients ? 
+                                        `<p class="text-sm text-gray-400 font-normal leading-relaxed">${item.ingredients}</p>` : 
+                                        ''}
+                                </div>
+                            </div>
+                            <button 
+                                onclick="app.toggleFavorite('${item.id}', event)"
+                                class="shrink-0 p-2.5 rounded-full transition-colors ${heartClass}"
+                                aria-label="${isFav ? 'Rimuovi dai preferiti' : 'Aggiungi ai preferiti'}"
+                            >
+                                <i data-lucide="heart" class="w-5 h-5 transition-transform duration-200 ${isFav ? 'scale-110' : ''}" ${heartFill}></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }
+        };
+
+        // Start App
+        document.addEventListener('DOMContentLoaded', () => {
+            app.init();
+        });
+
     </script>
 </body>
 </html>
