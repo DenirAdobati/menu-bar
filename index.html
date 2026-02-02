@@ -104,12 +104,12 @@
                        <!-- Injected by JS: Sparkle Icon removed on home, Back Button shown on inner pages -->
                    </div>
                    <div class="flex-1">
-                      <!-- MODIFICATO: Aggiunto text-center, aumentata dimensione a text-2xl -->
-                      <p id="header-subtitle" class="text-2xl font-light text-center text-anthracite leading-snug transition-all duration-300">
+                      <!-- MODIFICATO: Cambiato da p a div per permettere contenuti complessi (riquadri) -->
+                      <div id="header-subtitle" class="text-2xl font-light text-center text-anthracite leading-snug transition-all duration-300">
                         Ogni percorso da <span class="font-bold text-brand-gold">Beautrì</span> è unico, come te.
                         <!-- MODIFICATO: Aggiunto più margine (mt-4) e aumentata dimensione testo (text-base) -->
                         <span class="block mt-4 text-base text-gray-500 font-normal leading-relaxed">Quale dettaglio renderebbe la tua esperienza di oggi <span class="text-brand-gold font-bold">indimenticabile</span>?</span>
-                      </p>
+                      </div>
                    </div>
                 </div>
             </header>
@@ -225,9 +225,9 @@
                         setTimeout(() => subtitle.classList.remove('opacity-0'), 10);
                     }
                 } else {
-                    // In category views, always hide the header subtitle (it's replaced by page title)
-                    subtitle.classList.add('hidden');
-                    subtitle.classList.add('opacity-0');
+                    // In category views, always SHOW the subtitle (which is now the title box)
+                    subtitle.classList.remove('hidden');
+                    subtitle.classList.remove('opacity-0');
                 }
             },
 
@@ -242,14 +242,26 @@
 
             updateHeaderText() {
                 const subtitle = document.getElementById('header-subtitle');
+                const currentCategory = CATEGORIES.find(c => c.id === this.state.view);
+
                 if (this.state.view === 'home') {
+                    // Styles for Home View
+                    subtitle.className = "text-2xl font-light text-center text-anthracite leading-snug transition-all duration-300";
                     subtitle.innerHTML = `
                         Ogni percorso da <span class="font-bold text-brand-gold">Beautrì</span> è unico, come te.
                         <span class="block mt-4 text-base text-gray-500 font-normal leading-relaxed">Quale dettaglio renderebbe la tua esperienza di oggi <span class="text-brand-gold font-bold">indimenticabile</span>?</span>
                     `;
-                } else {
-                    // Clean subtitle content for other views
-                    subtitle.innerHTML = '';
+                } else if (currentCategory) {
+                    // Styles for Category View
+                    // MODIFICA RICHIESTA: Riquadro con simbolo, posizionato a destra del tasto back (grazie alla struttura flex)
+                    subtitle.className = "transition-all duration-300 flex justify-start pl-2"; 
+                    
+                    subtitle.innerHTML = `
+                        <div class="inline-flex items-center gap-3 px-5 py-2.5 bg-white border border-gray-100 shadow-[0_2px_15px_-4px_rgba(0,0,0,0.05)] rounded-2xl animate-fade-in">
+                            <span class="text-2xl filter drop-shadow-sm leading-none">${currentCategory.symbol}</span>
+                            <span class="text-lg font-bold text-anthracite tracking-tight leading-none pt-0.5">${currentCategory.label}</span>
+                        </div>
+                    `;
                 }
             },
 
@@ -269,7 +281,7 @@
                 } else {
                     container.classList.remove('hidden');
                     container.innerHTML = `
-                        <button onclick="app.setView('home')" class="p-2.5 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors active:scale-95 flex items-center justify-center">
+                        <button onclick="app.setView('home')" class="p-2.5 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors active:scale-95 flex items-center justify-center border border-gray-100/50">
                            <i data-lucide="chevron-left" class="w-5 h-5 text-anthracite"></i>
                         </button>
                     `;
@@ -330,18 +342,12 @@
                     
                 } else {
                     // Render Category Items
-                    const currentCategory = CATEGORIES.find(c => c.id === this.state.view);
+                    // MODIFICATO: Rimosso il titolo da qui (ora è nell'header nel riquadro)
                     const items = MENU_ITEMS.filter(i => i.categoryId === this.state.view);
-
-                    // Title - MODIFIED: Increased size (text-3xl) and visibility as requested
-                    const headerDiv = document.createElement('div');
-                    headerDiv.className = 'flex items-center justify-between pt-2 pb-4 px-1 animate-fade-in';
-                    headerDiv.innerHTML = `<h2 class="text-3xl font-bold text-anthracite tracking-tight">${currentCategory ? currentCategory.label : ''}</h2>`;
-                    container.appendChild(headerDiv);
 
                     // Items Grid
                     const itemsGrid = document.createElement('div');
-                    itemsGrid.className = 'grid gap-4 animate-fade-in';
+                    itemsGrid.className = 'grid gap-4 animate-fade-in pt-4';
                     itemsGrid.innerHTML = items.map(item => this.createCardHtml(item)).join('');
                     container.appendChild(itemsGrid);
 
