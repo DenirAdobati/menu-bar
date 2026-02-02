@@ -113,15 +113,6 @@
                       <p id="header-subtitle" class="text-xs text-gray-500 font-medium transition-opacity duration-300">Una coccola per te</p>
                    </div>
                 </div>
-                
-                <button 
-                  onclick="app.setCategory('favorites')"
-                  id="btn-favorites-main"
-                  class="relative p-2.5 rounded-full transition-all duration-300 bg-gray-50 text-gray-400 hover:bg-gray-100 active:scale-95 border border-transparent"
-                >
-                  <i data-lucide="heart" class="w-5 h-5"></i>
-                  <span id="fav-badge" class="hidden absolute top-0 right-0 w-3 h-3 bg-red-500 rounded-full border-2 border-white animate-pop"></span>
-                </button>
             </header>
 
             <!-- Navigation Categories -->
@@ -255,25 +246,6 @@
                 }
             },
 
-            toggleFavorite(id, event) {
-                if (event) event.stopPropagation();
-
-                if (this.state.favorites.has(id)) {
-                    this.state.favorites.delete(id);
-                } else {
-                    this.state.favorites.add(id);
-                    // Add subtle haptic feedback if available
-                    if (navigator.vibrate) navigator.vibrate(10);
-                }
-
-                // Save to local storage
-                localStorage.setItem('beautri_favorites', JSON.stringify([...this.state.favorites]));
-                
-                // If we are in "favorites" view and remove one, re-render to remove it from list
-                // If we are in "all" or specific category, just re-render to update the heart icon
-                this.render();
-            },
-
             setCategory(catId) {
                 this.state.activeCategory = catId;
                 window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -282,6 +254,7 @@
 
             getFilteredItems() {
                 if (this.state.activeCategory === 'all') return MENU_ITEMS;
+                // 'favorites' category logic kept for stability but unreachable via UI
                 if (this.state.activeCategory === 'favorites') {
                     return MENU_ITEMS.filter(item => this.state.favorites.has(item.id));
                 }
@@ -291,33 +264,7 @@
             render() {
                 this.renderNav();
                 this.renderContent();
-                this.updateFavoritesButton();
                 lucide.createIcons();
-            },
-
-            updateFavoritesButton() {
-                const btn = document.getElementById('btn-favorites-main');
-                const badge = document.getElementById('fav-badge');
-                const icon = btn.querySelector('i');
-                const isFavMode = this.state.activeCategory === 'favorites';
-
-                // Style logic
-                if (isFavMode) {
-                    btn.classList.remove('bg-gray-50', 'text-gray-400', 'hover:bg-gray-100');
-                    btn.classList.add('bg-red-50', 'text-red-500', 'border-red-100');
-                    icon.setAttribute('fill', 'currentColor');
-                } else {
-                    btn.classList.add('bg-gray-50', 'text-gray-400', 'hover:bg-gray-100');
-                    btn.classList.remove('bg-red-50', 'text-red-500', 'border-red-100');
-                    icon.removeAttribute('fill');
-                }
-
-                // Badge logic
-                if (this.state.favorites.size > 0 && !isFavMode) {
-                    badge.classList.remove('hidden');
-                } else {
-                    badge.classList.add('hidden');
-                }
             },
 
             renderNav() {
@@ -360,7 +307,7 @@
                 // Reset container
                 container.innerHTML = '';
                 
-                // Handle Favorites Empty State
+                // Handle Favorites Empty State (unreachable but kept for code safety)
                 if (this.state.activeCategory === 'favorites' && this.state.favorites.size === 0) {
                     container.classList.add('hidden');
                     emptyState.classList.remove('hidden');
@@ -397,7 +344,7 @@
                         container.appendChild(section);
                     });
                 } else {
-                    // Single list (Category or Favorites)
+                    // Single list (Category)
                     const items = this.getFilteredItems();
                     
                     if (items.length === 0 && this.state.activeCategory !== 'favorites') {
@@ -426,10 +373,6 @@
             },
 
             createCardHtml(item) {
-                const isFav = this.state.favorites.has(item.id);
-                const heartClass = isFav ? 'text-red-500 bg-red-50 fill-red-500' : 'text-gray-300 hover:text-red-400 hover:bg-gray-50';
-                const heartFill = isFav ? 'fill="currentColor"' : '';
-
                 return `
                     <div class="group relative flex flex-col p-5 bg-white rounded-apple border border-gray-100 shadow-sm transition-all duration-300 active:scale-[0.98]">
                         <div class="flex justify-between items-start">
@@ -444,13 +387,6 @@
                                         ''}
                                 </div>
                             </div>
-                            <button 
-                                onclick="app.toggleFavorite('${item.id}', event)"
-                                class="shrink-0 p-2.5 rounded-full transition-colors ${heartClass}"
-                                aria-label="${isFav ? 'Rimuovi dai preferiti' : 'Aggiungi ai preferiti'}"
-                            >
-                                <i data-lucide="heart" class="w-5 h-5 transition-transform duration-200 ${isFav ? 'scale-110' : ''}" ${heartFill}></i>
-                            </button>
                         </div>
                     </div>
                 `;
