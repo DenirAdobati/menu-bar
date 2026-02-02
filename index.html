@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="description" content="Menu digitale elegante per Beautrì">
-    <meta name="theme-color" content="#ffffff">
+    <meta name="theme-color" content="#f5f5f4">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     
@@ -32,6 +32,7 @@
               anthracite: '#333333',
               'apple-gray': '#F5F5F7',
               'brand-gold': '#D4AF37',
+              'warm-bg': '#F2F0E9',
             },
             borderRadius: {
               'apple': '1.5rem',
@@ -57,7 +58,7 @@
     </script>
     <style>
       body {
-        background-color: #ffffff;
+        background-color: #f5f5f4;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
         overscroll-behavior-y: none; /* Prevent bounce effect on mobile */
@@ -79,6 +80,26 @@
         -ms-overflow-style: none; 
         scrollbar-width: none;  
       }
+
+      /* --- BACKGROUND PATTERNS --- */
+      
+      /* Coffee: Dark Brown with Beans */
+      .bg-coffee-pattern {
+        background-color: #3E2723;
+        background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%235D4037' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3Cpath d='M30 10c-5 0-9 4-9 9 0 5 4 9 9 9s9-4 9-9-4-9-9-9zm0 16c-3 0-6-3-6-7 0-3 2-6 5-6s6 3 6 7-3 6-5 6z' opacity='0.3'/%3E%3Cpath d='M50 40c-5 0-9 4-9 9 0 5 4 9 9 9s9-4 9-9-4-9-9-9zm0 16c-3 0-6-3-6-7 0-3 2-6 5-6s6 3 6 7-3 6-5 6z' opacity='0.3'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      }
+
+      /* Tea: Hunter Green with Leaves */
+      .bg-tea-pattern {
+        background-color: #354F38;
+        background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%238FB390' fill-opacity='0.2'%3E%3Cpath d='M20 2c0 0-2 8-8 8 6 0 8 8 8 8s2-8 8-8c-6 0-8-8-8-8z' transform='translate(0 2)'/%3E%3Cpath d='M20 2c0 0-2 8-8 8 6 0 8 8 8 8s2-8 8-8c-6 0-8-8-8-8z' transform='translate(20 20) rotate(90 10 10)'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      }
+
+      /* Infusion: Deep Berry with Fruit Circles */
+      .bg-infusion-pattern {
+        background-color: #6A2C3E; 
+        background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239E5A6F' fill-opacity='0.3'%3E%3Ccircle cx='10' cy='10' r='3'/%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3Cpath d='M20 18c2-3 6-3 8 0s-3 6-8 0z' opacity='0.6'/%3E%3Ccircle cx='34' cy='6' r='4' opacity='0.4'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      }
     </style>
 <script type="importmap">
 {
@@ -91,7 +112,7 @@
 }
 </script>
 </head>
-<body class="bg-gradient-to-b from-white to-gray-50 text-anthracite selection:bg-brand-gold/20 min-h-screen pb-20">
+<body class="bg-stone-100 text-anthracite selection:bg-brand-gold/20 min-h-screen pb-20 transition-colors duration-500">
 
     <!-- Sticky Header -->
     <div id="sticky-header" class="sticky top-0 z-50 transition-all duration-300 bg-transparent pt-8 pb-4">
@@ -101,13 +122,11 @@
             <header class="mb-4">
                 <div class="flex items-start gap-3">
                    <div id="header-icon-container" class="transition-all duration-300 mt-1 shrink-0 hidden">
-                       <!-- Injected by JS: Sparkle Icon removed on home, Back Button shown on inner pages -->
+                       <!-- Injected by JS: Back Button shown on inner pages -->
                    </div>
                    <div class="flex-1">
-                      <!-- MODIFICATO: Cambiato da p a div per permettere contenuti complessi (riquadri) -->
                       <div id="header-subtitle" class="text-2xl font-light text-center text-anthracite leading-snug transition-all duration-300">
                         Ogni percorso da <span class="font-bold text-brand-gold">Beautrì</span> è unico, come te.
-                        <!-- MODIFICATO: Aggiunto più margine (mt-4) e aumentata dimensione testo (text-base) -->
                         <span class="block mt-4 text-base text-gray-500 font-normal leading-relaxed">Quale dettaglio renderebbe la tua esperienza di oggi <span class="text-brand-gold font-bold">indimenticabile</span>?</span>
                       </div>
                    </div>
@@ -124,11 +143,11 @@
     </main>
 
     <!-- Footer -->
-    <footer class="mt-16 text-center opacity-40 pb-8">
+    <footer id="main-footer" class="mt-16 text-center opacity-40 pb-8 transition-opacity duration-300">
         <div class="flex items-center justify-center gap-3">
-          <div class="h-px w-8 bg-gray-300"></div>
-          <span class="text-[10px] font-semibold tracking-[0.2em] uppercase text-gray-500">Beautrì Menu</span>
-          <div class="h-px w-8 bg-gray-300"></div>
+          <div class="h-px w-8 bg-gray-300 footer-line transition-colors"></div>
+          <span class="text-[10px] font-semibold tracking-[0.2em] uppercase text-gray-500 footer-text transition-colors">Beautrì Menu</span>
+          <div class="h-px w-8 bg-gray-300 footer-line transition-colors"></div>
         </div>
     </footer>
 
@@ -136,7 +155,6 @@
     <script>
         // --- DATA ---
         const CATEGORIES = [
-            // Updated to use Emoji symbols as requested
             { id: 'coffee', label: 'Il caffè della bellezza', symbol: '☕' },
             { id: 'tea', label: 'Rilassati con un buon tè e scopri i nostri sapori unici', symbol: '🫖' },
             { id: 'infusion', label: 'Infusi e tisane per rilassarti e trovare benessere', symbol: '🌿' },
@@ -202,21 +220,87 @@
                 });
             },
 
+            updateTheme() {
+                const body = document.body;
+                const footer = document.querySelector('#main-footer');
+                const footerText = footer.querySelector('.footer-text');
+                const footerLines = footer.querySelectorAll('.footer-line');
+                const view = this.state.view;
+
+                // Reset all custom bg classes
+                body.classList.remove('bg-stone-100', 'bg-coffee-pattern', 'bg-tea-pattern', 'bg-infusion-pattern', 'text-anthracite', 'text-white');
+                
+                // Footer Base Styles
+                footer.classList.remove('opacity-40', 'opacity-80');
+
+                // Helper to set footer colors
+                const setFooterColors = (isDark) => {
+                    if (isDark) {
+                         footerText.classList.remove('text-gray-500');
+                         footerText.classList.add('text-white/60');
+                         footerLines.forEach(l => {
+                             l.classList.remove('bg-gray-300');
+                             l.classList.add('bg-white/30');
+                         });
+                    } else {
+                         footerText.classList.add('text-gray-500');
+                         footerText.classList.remove('text-white/60');
+                         footerLines.forEach(l => {
+                             l.classList.add('bg-gray-300');
+                             l.classList.remove('bg-white/30');
+                         });
+                    }
+                };
+
+                if (view === 'coffee') {
+                    body.classList.add('bg-coffee-pattern', 'text-white');
+                    footer.classList.add('opacity-80');
+                    setFooterColors(true);
+                } else if (view === 'tea') {
+                    body.classList.add('bg-tea-pattern', 'text-white');
+                    footer.classList.add('opacity-80');
+                    setFooterColors(true);
+                } else if (view === 'infusion') {
+                    body.classList.add('bg-infusion-pattern', 'text-white');
+                    footer.classList.add('opacity-80');
+                    setFooterColors(true);
+                } else {
+                    body.classList.add('bg-stone-100', 'text-anthracite');
+                    footer.classList.add('opacity-40');
+                    setFooterColors(false);
+                }
+            },
+
             updateHeaderStyle() {
                 const header = document.getElementById('sticky-header');
                 const subtitle = document.getElementById('header-subtitle');
+                const view = this.state.view;
+                const isHome = view === 'home';
                 
-                // Header style logic
+                // Header background logic
+                // If it's home, use white bg on scroll.
+                // If it's a category (dark bg), use dark glass effect on scroll? 
+                // Currently sticking to original "white/95" might look weird on dark bg.
+                // Let's adjust it to standard glass.
+                
                 if (this.state.scrolled) {
                     header.classList.remove('bg-transparent', 'pt-8', 'pb-4');
-                    header.classList.add('bg-white/95', 'backdrop-blur-md', 'shadow-sm', 'pt-4', 'pb-2');
+                    // Use a more neutral backdrop that works on both (stone and dark)
+                    if (isHome) {
+                         header.classList.add('bg-stone-100/95', 'backdrop-blur-md', 'shadow-sm', 'pt-4', 'pb-2');
+                    } else {
+                         // On dark backgrounds, we don't want a white header bar covering the pattern too much
+                         // Just transparent or very subtle dark tint?
+                         // Let's keep it transparent but shrink padding, as standard behavior
+                         header.classList.add('bg-transparent', 'backdrop-blur-none', 'pt-4', 'pb-2');
+                    }
                 } else {
                     header.classList.add('bg-transparent', 'pt-8', 'pb-4');
-                    header.classList.remove('bg-white/95', 'backdrop-blur-md', 'shadow-sm', 'pt-4', 'pb-2');
+                    header.classList.remove('bg-stone-100/95', 'backdrop-blur-md', 'shadow-sm', 'pt-4', 'pb-2');
                 }
 
-                // Subtitle visibility logic based on View AND Scroll
-                if (this.state.view === 'home') {
+                // Subtitle visibility logic
+                if (isHome) {
                     if (this.state.scrolled) {
                         subtitle.classList.add('opacity-0');
                         setTimeout(() => subtitle.classList.add('hidden'), 300);
@@ -225,7 +309,6 @@
                         setTimeout(() => subtitle.classList.remove('opacity-0'), 10);
                     }
                 } else {
-                    // In category views, always SHOW the subtitle (which is now the title box)
                     subtitle.classList.remove('hidden');
                     subtitle.classList.remove('opacity-0');
                 }
@@ -236,8 +319,6 @@
                 window.scrollTo({ top: 0, behavior: 'smooth' });
                 this.state.scrolled = false;
                 this.render();
-                // Ensure header style is updated immediately for the new view
-                this.updateHeaderStyle();
             },
 
             updateHeaderText() {
@@ -245,15 +326,14 @@
                 const currentCategory = CATEGORIES.find(c => c.id === this.state.view);
 
                 if (this.state.view === 'home') {
-                    // Styles for Home View
-                    subtitle.className = "text-2xl font-light text-center text-anthracite leading-snug transition-all duration-300";
+                    // Reset styling for Home
+                    subtitle.className = "text-2xl font-light text-center leading-snug transition-all duration-300";
                     subtitle.innerHTML = `
                         Ogni percorso da <span class="font-bold text-brand-gold">Beautrì</span> è unico, come te.
                         <span class="block mt-4 text-base text-gray-500 font-normal leading-relaxed">Quale dettaglio renderebbe la tua esperienza di oggi <span class="text-brand-gold font-bold">indimenticabile</span>?</span>
                     `;
                 } else if (currentCategory) {
-                    // Styles for Category View
-                    // MODIFICA RICHIESTA: Riquadro con simbolo, posizionato a destra del tasto back (grazie alla struttura flex)
+                    // Category Header (Pill Box)
                     subtitle.className = "transition-all duration-300 flex justify-start pl-2"; 
                     
                     subtitle.innerHTML = `
@@ -266,7 +346,9 @@
             },
 
             render() {
+                this.updateTheme(); // Apply background changes first
                 this.updateHeaderText();
+                this.updateHeaderStyle(); // Ensure header style is correct
                 this.renderHeaderIcon();
                 this.renderContent();
                 lucide.createIcons();
@@ -275,11 +357,11 @@
             renderHeaderIcon() {
                 const container = document.getElementById('header-icon-container');
                 if (this.state.view === 'home') {
-                    // Simbolo rimosso come richiesto
                     container.innerHTML = '';
                     container.classList.add('hidden');
                 } else {
                     container.classList.remove('hidden');
+                    // Back button remains light (bg-gray-50) even on dark background for contrast
                     container.innerHTML = `
                         <button onclick="app.setView('home')" class="p-2.5 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors active:scale-95 flex items-center justify-center border border-gray-100/50">
                            <i data-lucide="chevron-left" class="w-5 h-5 text-anthracite"></i>
@@ -289,9 +371,7 @@
             },
 
             getCategoryStyle(id) {
-                // MODIFIED: Rimosso effetti hover (ombre e bordi colorati)
                 const baseContainer = 'bg-white shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] transition-all duration-500 cubic-bezier(0.34, 1.56, 0.64, 1) border border-transparent';
-                
                 return {
                     container: baseContainer,
                     iconBox: 'bg-brand-gold/10 text-brand-gold ring-1 ring-brand-gold/20', 
@@ -304,16 +384,13 @@
                 container.innerHTML = '';
 
                 if (this.state.view === 'home') {
-                    // Render 3 Main Buttons (Coffee, Tea, Infusion)
+                    // Home View
                     const mainCategories = CATEGORIES.filter(c => c.id !== 'sweet');
-                    
                     const gridDiv = document.createElement('div');
                     gridDiv.className = 'grid gap-5 animate-fade-in pt-4';
                     
                     mainCategories.forEach((cat, index) => {
                        const styles = this.getCategoryStyle(cat.id);
-                       
-                       // MODIFIED: Rimosso classi group-hover
                        gridDiv.innerHTML += `
                            <button
                              onclick="app.setView('${cat.id}')"
@@ -334,11 +411,10 @@
                            </button>
                        `; 
                     });
-                    
                     container.appendChild(gridDiv);
                     
                 } else {
-                    // Render Category Items
+                    // Category View
                     const items = MENU_ITEMS.filter(i => i.categoryId === this.state.view);
 
                     // Items Grid
@@ -347,11 +423,12 @@
                     itemsGrid.innerHTML = items.map(item => this.createCardHtml(item)).join('');
                     container.appendChild(itemsGrid);
 
-                    // Sweet Section (Bottom Box)
+                    // Sweet Section
                     const sweetCategory = CATEGORIES.find(c => c.id === 'sweet');
                     const sweetItems = MENU_ITEMS.filter(i => i.categoryId === 'sweet');
                     
                     const sweetBox = document.createElement('div');
+                    // Sweet box is always white, creating good contrast on dark backgrounds
                     sweetBox.className = 'mt-12 bg-white border border-brand-gold/20 shadow-sm rounded-apple p-6 animate-fade-in relative overflow-hidden';
                     sweetBox.style.animationDelay = '200ms';
                     
@@ -367,7 +444,6 @@
                         </div>
                         <div class="grid gap-4 relative z-10">
                     `;
-                    
                     sweetHtml += sweetItems.map(item => this.createCardHtml(item, true)).join('');
                     sweetHtml += `</div>`;
                     
@@ -377,7 +453,6 @@
             },
 
             createCardHtml(item, isSweet = false) {
-                // MODIFIED: Rimosso hover:shadow-md e group-hover:text-brand-gold
                 const bgClass = isSweet ? 'bg-white border-brand-gold/10' : 'bg-white border-gray-100';
                 return `
                     <div class="group relative flex flex-col p-5 rounded-apple border shadow-[0_2px_10px_-2px_rgba(0,0,0,0.03)] transition-all duration-300 active:scale-[0.98] ${bgClass}">
