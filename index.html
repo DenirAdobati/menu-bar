@@ -61,15 +61,10 @@
         background-color: #f5f5f4;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
-        overscroll-behavior-y: none; /* Prevent bounce effect on mobile */
       }
       
       * {
         -webkit-tap-highlight-color: transparent;
-      }
-      
-      html {
-        scroll-behavior: smooth;
       }
 
       /* Hide scrollbar */
@@ -80,54 +75,24 @@
         -ms-overflow-style: none; 
         scrollbar-width: none;  
       }
-
-      /* --- BACKGROUND PATTERNS (Unused but kept for reference) --- */
-      
-      /* Coffee: Dark Brown with Beans */
-      .bg-coffee-pattern {
-        background-color: #3E2723;
-        background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%235D4037' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3Cpath d='M30 10c-5 0-9 4-9 9 0 5 4 9 9 9s9-4 9-9-4-9-9-9zm0 16c-3 0-6-3-6-7 0-3 2-6 5-6s6 3 6 7-3 6-5 6z' opacity='0.3'/%3E%3Cpath d='M50 40c-5 0-9 4-9 9 0 5 4 9 9 9s9-4 9-9-4-9-9-9zm0 16c-3 0-6-3-6-7 0-3 2-6 5-6s6 3 6 7-3 6-5 6z' opacity='0.3'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-      }
-
-      /* Tea: Hunter Green with Leaves */
-      .bg-tea-pattern {
-        background-color: #354F38;
-        background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%238FB390' fill-opacity='0.2'%3E%3Cpath d='M20 2c0 0-2 8-8 8 6 0 8 8 8 8s2-8 8-8c-6 0-8-8-8-8z' transform='translate(0 2)'/%3E%3Cpath d='M20 2c0 0-2 8-8 8 6 0 8 8 8 8s2-8 8-8c-6 0-8-8-8-8z' transform='translate(20 20) rotate(90 10 10)'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-      }
-
-      /* Infusion: Deep Berry with Fruit Circles */
-      .bg-infusion-pattern {
-        background-color: #6A2C3E; 
-        background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239E5A6F' fill-opacity='0.3'%3E%3Ccircle cx='10' cy='10' r='3'/%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3Cpath d='M20 18c2-3 6-3 8 0s-3 6-8 0z' opacity='0.6'/%3E%3Ccircle cx='34' cy='6' r='4' opacity='0.4'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-      }
     </style>
-<script type="importmap">
-{
-  "imports": {
-    "react": "https://esm.sh/react@^19.2.4",
-    "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
-    "react/": "https://esm.sh/react@^19.2.4/",
-    "lucide-react": "https://esm.sh/lucide-react@^0.563.0"
-  }
-}
-</script>
 </head>
 <body class="bg-stone-100 text-anthracite selection:bg-brand-gold/20 min-h-screen pb-20 transition-colors duration-500">
 
     <!-- Sticky Header -->
-    <div id="sticky-header" class="sticky top-0 z-50 transition-all duration-300 bg-transparent pt-8 pb-4">
-        <div class="max-w-xl mx-auto px-6">
+    <div id="sticky-header" class="sticky top-0 z-50 transition-all duration-300 bg-transparent pt-8 pb-4 md:pt-12 md:pb-6">
+        <div class="max-w-xl md:max-w-3xl lg:max-w-5xl mx-auto px-6 md:px-8">
             
             <!-- Top Bar -->
-            <header class="mb-4">
-                <div class="flex items-start gap-3">
-                   <div id="header-icon-container" class="transition-all duration-300 mt-1 shrink-0 hidden">
+            <header class="mb-4 md:mb-8">
+                <div class="flex items-start gap-3 md:gap-5">
+                   <div id="header-icon-container" class="transition-all duration-300 mt-1 md:mt-2 shrink-0 hidden">
                        <!-- Injected by JS: Back Button shown on inner pages -->
                    </div>
                    <div class="flex-1">
-                      <div id="header-subtitle" class="text-2xl font-light text-center text-anthracite leading-snug transition-all duration-300">
+                      <div id="header-subtitle" class="text-2xl md:text-3xl lg:text-4xl font-light text-center text-anthracite leading-snug transition-all duration-300">
                         Ogni percorso da <span class="font-bold text-brand-gold">Beautrì</span> è unico, come te.
-                        <span class="block mt-4 text-base text-gray-500 font-normal leading-relaxed">Quale dettaglio renderebbe la tua esperienza di oggi <span class="text-brand-gold font-bold">indimenticabile</span>?</span>
+                        <span class="block mt-4 md:mt-6 text-base md:text-lg lg:text-xl text-gray-500 font-normal leading-relaxed">Quale dettaglio renderebbe la tua esperienza di oggi <span class="text-brand-gold font-bold">indimenticabile</span>?</span>
                       </div>
                    </div>
                 </div>
@@ -136,18 +101,18 @@
     </div>
 
     <!-- Main Content -->
-    <main class="max-w-xl mx-auto px-6 space-y-8 min-h-[60vh] mt-2">
-        <div id="menu-container" class="grid gap-6">
+    <main class="max-w-xl md:max-w-3xl lg:max-w-5xl mx-auto px-6 md:px-8 space-y-8 md:space-y-12 min-h-[60vh] mt-2 md:mt-6">
+        <div id="menu-container" class="grid gap-6 md:gap-8">
             <!-- Items injected by JS -->
         </div>
     </main>
 
     <!-- Footer -->
-    <footer id="main-footer" class="mt-16 text-center opacity-40 pb-8 transition-opacity duration-300">
-        <div class="flex items-center justify-center gap-3">
-          <div class="h-px w-8 bg-gray-300 footer-line transition-colors"></div>
-          <span class="text-[10px] font-semibold tracking-[0.2em] uppercase text-gray-500 footer-text transition-colors">Beautrì Menu</span>
-          <div class="h-px w-8 bg-gray-300 footer-line transition-colors"></div>
+    <footer id="main-footer" class="mt-16 md:mt-24 text-center opacity-40 pb-8 md:pb-12 transition-opacity duration-300">
+        <div class="flex items-center justify-center gap-3 md:gap-5">
+          <div class="h-px w-8 md:w-16 bg-gray-300 footer-line transition-colors"></div>
+          <span class="text-[10px] md:text-xs font-semibold tracking-[0.2em] uppercase text-gray-500 footer-text transition-colors">Beautrì Menu</span>
+          <div class="h-px w-8 md:w-16 bg-gray-300 footer-line transition-colors"></div>
         </div>
     </footer>
 
@@ -227,9 +192,6 @@
                 const footerText = footer.querySelector('.footer-text');
                 const footerLines = footer.querySelectorAll('.footer-line');
 
-                // Reset all custom bg classes
-                body.classList.remove('bg-coffee-pattern', 'bg-tea-pattern', 'bg-infusion-pattern', 'text-white');
-                
                 // Always use default light theme
                 body.classList.add('bg-stone-100', 'text-anthracite');
                 
@@ -237,7 +199,7 @@
                 footer.classList.remove('opacity-80');
                 footer.classList.add('opacity-40');
 
-                // Helper to set footer colors - Always light theme mode
+                // Helper to set footer colors
                 const setFooterColors = () => {
                      footerText.classList.add('text-gray-500');
                      footerText.classList.remove('text-white/60');
@@ -258,12 +220,11 @@
                 
                 // Header background logic
                 if (this.state.scrolled) {
-                    header.classList.remove('bg-transparent', 'pt-8', 'pb-4');
-                    // Always use standard glass effect on scroll
-                    header.classList.add('bg-stone-100/95', 'backdrop-blur-md', 'shadow-sm', 'pt-4', 'pb-2');
+                    header.classList.remove('bg-transparent', 'pt-8', 'pb-4', 'md:pt-12', 'md:pb-6');
+                    header.classList.add('bg-stone-100/95', 'backdrop-blur-md', 'shadow-sm', 'pt-4', 'pb-2', 'md:pt-6', 'md:pb-4');
                 } else {
-                    header.classList.add('bg-transparent', 'pt-8', 'pb-4');
-                    header.classList.remove('bg-stone-100/95', 'backdrop-blur-md', 'shadow-sm', 'pt-4', 'pb-2');
+                    header.classList.add('bg-transparent', 'pt-8', 'pb-4', 'md:pt-12', 'md:pb-6');
+                    header.classList.remove('bg-stone-100/95', 'backdrop-blur-md', 'shadow-sm', 'pt-4', 'pb-2', 'md:pt-6', 'md:pb-4');
                 }
 
                 // Subtitle visibility logic
@@ -283,7 +244,7 @@
 
             setView(viewId) {
                 this.state.view = viewId;
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+                window.scrollTo(0, 0); // Rimosso lo scroll smooth che causava glitch visivi
                 this.state.scrolled = false;
                 this.render();
             },
@@ -294,28 +255,28 @@
 
                 if (this.state.view === 'home') {
                     // Reset styling for Home
-                    subtitle.className = "text-2xl font-light text-center leading-snug transition-all duration-300";
+                    subtitle.className = "text-2xl md:text-3xl lg:text-4xl font-light text-center leading-snug transition-all duration-300";
                     subtitle.innerHTML = `
                         Ogni percorso da <span class="font-bold text-brand-gold">Beautrì</span> è unico, come te.
-                        <span class="block mt-4 text-base text-gray-500 font-normal leading-relaxed">Quale dettaglio renderebbe la tua esperienza di oggi <span class="text-brand-gold font-bold">indimenticabile</span>?</span>
+                        <span class="block mt-4 md:mt-6 text-base md:text-lg lg:text-xl text-gray-500 font-normal leading-relaxed">Quale dettaglio renderebbe la tua esperienza di oggi <span class="text-brand-gold font-bold">indimenticabile</span>?</span>
                     `;
                 } else if (currentCategory) {
                     // Category Header (Pill Box)
-                    subtitle.className = "transition-all duration-300 flex justify-start pl-2"; 
+                    subtitle.className = "transition-all duration-300 flex justify-start pl-2 md:pl-0"; 
                     
                     subtitle.innerHTML = `
-                        <div class="inline-flex items-center gap-3 px-5 py-2.5 bg-white border border-gray-100 shadow-[0_2px_15px_-4px_rgba(0,0,0,0.05)] rounded-2xl animate-fade-in">
-                            <span class="text-2xl filter drop-shadow-sm leading-none">${currentCategory.symbol}</span>
-                            <span class="text-lg font-bold text-anthracite tracking-tight leading-none pt-0.5">${currentCategory.label}</span>
+                        <div class="inline-flex items-center gap-3 md:gap-4 px-5 md:px-6 py-2.5 md:py-3 bg-white border border-gray-100 shadow-[0_2px_15px_-4px_rgba(0,0,0,0.05)] rounded-2xl md:rounded-3xl animate-fade-in">
+                            <span class="text-2xl md:text-3xl filter drop-shadow-sm leading-none">${currentCategory.symbol}</span>
+                            <span class="text-lg md:text-xl font-bold text-anthracite tracking-tight leading-none pt-0.5">${currentCategory.label}</span>
                         </div>
                     `;
                 }
             },
 
             render() {
-                this.updateTheme(); // Apply background changes first
+                this.updateTheme();
                 this.updateHeaderText();
-                this.updateHeaderStyle(); // Ensure header style is correct
+                this.updateHeaderStyle();
                 this.renderHeaderIcon();
                 this.renderContent();
                 lucide.createIcons();
@@ -328,17 +289,16 @@
                     container.classList.add('hidden');
                 } else {
                     container.classList.remove('hidden');
-                    // Back button remains light (bg-gray-50) even on dark background for contrast
                     container.innerHTML = `
-                        <button onclick="app.setView('home')" class="p-2.5 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors active:scale-95 flex items-center justify-center border border-gray-100/50">
-                           <i data-lucide="chevron-left" class="w-5 h-5 text-anthracite"></i>
+                        <button onclick="app.setView('home')" class="p-2.5 md:p-3 bg-gray-50 rounded-xl md:rounded-2xl hover:bg-gray-100 transition-colors active:scale-95 flex items-center justify-center border border-gray-100/50">
+                           <i data-lucide="chevron-left" class="w-5 h-5 md:w-6 md:h-6 text-anthracite"></i>
                         </button>
                     `;
                 }
             },
 
             getCategoryStyle(id) {
-                const baseContainer = 'bg-white shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] transition-all duration-500 cubic-bezier(0.34, 1.56, 0.64, 1) border border-transparent';
+                const baseContainer = 'bg-white shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] hover:shadow-[0_8px_30px_-4px_rgba(0,0,0,0.08)] transition-all duration-500 cubic-bezier(0.34, 1.56, 0.64, 1) border border-transparent';
                 return {
                     container: baseContainer,
                     iconBox: 'bg-brand-gold/10 text-brand-gold ring-1 ring-brand-gold/20', 
@@ -354,25 +314,26 @@
                     // Home View
                     const mainCategories = CATEGORIES.filter(c => c.id !== 'sweet');
                     const gridDiv = document.createElement('div');
-                    gridDiv.className = 'grid gap-5 animate-fade-in pt-4';
+                    // Rimossa la classe md:grid-cols-2 per farli stare uno sopra l'altro
+                    gridDiv.className = 'grid grid-cols-1 gap-5 md:gap-6 animate-fade-in pt-4 md:pt-6';
                     
                     mainCategories.forEach((cat, index) => {
                        const styles = this.getCategoryStyle(cat.id);
                        gridDiv.innerHTML += `
                            <button
                              onclick="app.setView('${cat.id}')"
-                             class="group relative flex items-center justify-between p-5 rounded-apple ${styles.container} w-full text-left overflow-hidden active:scale-95 transition-transform"
+                             class="group relative flex items-center justify-between p-5 md:p-6 rounded-apple md:rounded-[2rem] ${styles.container} w-full text-left overflow-hidden active:scale-95 transition-transform"
                              style="animation-delay: ${index * 100}ms"
                            >
-                             <div class="flex items-center gap-5 relative z-10 w-full">
-                                <div class="w-14 h-14 rounded-2xl flex items-center justify-center shrink-0 ${styles.iconBox}">
-                                   <span class="text-3xl filter drop-shadow-sm leading-none">${cat.symbol}</span>
+                             <div class="flex items-center gap-5 md:gap-6 relative z-10 w-full">
+                                <div class="w-14 h-14 md:w-16 md:h-16 rounded-2xl md:rounded-3xl flex items-center justify-center shrink-0 ${styles.iconBox}">
+                                   <span class="text-3xl md:text-4xl filter drop-shadow-sm leading-none">${cat.symbol}</span>
                                 </div>
-                                <div class="flex-1 px-2 text-center">
-                                   <h3 class="text-lg font-semibold text-anthracite leading-snug transition-colors duration-300">${cat.label}</h3>
+                                <div class="flex-1 px-2 text-left">
+                                   <h3 class="text-lg md:text-xl font-semibold text-anthracite leading-snug transition-colors duration-300">${cat.label}</h3>
                                 </div>
-                                <div class="w-9 h-9 rounded-full bg-gray-50 flex items-center justify-center shrink-0 shadow-sm border border-gray-100">
-                                    <i data-lucide="arrow-right" class="w-4 h-4 text-anthracite"></i>
+                                <div class="w-9 h-9 md:w-10 md:h-10 rounded-full bg-gray-50 flex items-center justify-center shrink-0 shadow-sm border border-gray-100 group-hover:bg-brand-gold/10 group-hover:border-brand-gold/20 transition-colors">
+                                    <i data-lucide="arrow-right" class="w-4 h-4 md:w-5 md:h-5 text-anthracite group-hover:text-brand-gold transition-colors"></i>
                                 </div>
                              </div>
                            </button>
@@ -384,9 +345,9 @@
                     // Category View
                     const items = MENU_ITEMS.filter(i => i.categoryId === this.state.view);
 
-                    // Items Grid
+                    // Items Grid - Added md:grid-cols-2 lg:grid-cols-3 for iPad
                     const itemsGrid = document.createElement('div');
-                    itemsGrid.className = 'grid gap-4 animate-fade-in pt-4';
+                    itemsGrid.className = 'grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 animate-fade-in pt-4 md:pt-6';
                     itemsGrid.innerHTML = items.map(item => this.createCardHtml(item)).join('');
                     container.appendChild(itemsGrid);
 
@@ -395,21 +356,20 @@
                     const sweetItems = MENU_ITEMS.filter(i => i.categoryId === 'sweet');
                     
                     const sweetBox = document.createElement('div');
-                    // Sweet box is always white, creating good contrast on dark backgrounds
-                    sweetBox.className = 'mt-12 bg-white border border-brand-gold/20 shadow-sm rounded-apple p-6 animate-fade-in relative overflow-hidden';
+                    sweetBox.className = 'mt-12 md:mt-16 bg-white border border-brand-gold/20 shadow-sm rounded-apple md:rounded-[2rem] p-6 md:p-8 animate-fade-in relative overflow-hidden';
                     sweetBox.style.animationDelay = '200ms';
                     
                     let sweetHtml = `
-                        <div class="absolute top-0 right-0 w-32 h-32 bg-brand-gold/5 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none"></div>
-                        <div class="flex items-center gap-3 mb-6 relative z-10">
-                           <div class="p-2 bg-brand-gold/10 rounded-xl text-brand-gold">
-                              <i data-lucide="candy" class="w-5 h-5"></i>
+                        <div class="absolute top-0 right-0 w-32 h-32 md:w-48 md:h-48 bg-brand-gold/5 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none"></div>
+                        <div class="flex items-center gap-3 md:gap-4 mb-6 md:mb-8 relative z-10">
+                           <div class="p-2 md:p-3 bg-brand-gold/10 rounded-xl md:rounded-2xl text-brand-gold">
+                              <i data-lucide="candy" class="w-5 h-5 md:w-6 md:h-6"></i>
                            </div>
-                           <h3 class="text-lg font-bold text-anthracite">
+                           <h3 class="text-lg md:text-xl font-bold text-anthracite">
                              ${sweetCategory ? sweetCategory.label : 'Per addolcire la tua coccola'}
                            </h3>
                         </div>
-                        <div class="grid gap-4 relative z-10">
+                        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 relative z-10">
                     `;
                     sweetHtml += sweetItems.map(item => this.createCardHtml(item, true)).join('');
                     sweetHtml += `</div>`;
@@ -422,16 +382,16 @@
             createCardHtml(item, isSweet = false) {
                 const bgClass = isSweet ? 'bg-white border-brand-gold/10' : 'bg-white border-gray-100';
                 return `
-                    <div class="group relative flex flex-col p-5 rounded-apple border shadow-[0_2px_10px_-2px_rgba(0,0,0,0.03)] transition-all duration-300 active:scale-[0.98] ${bgClass}">
-                        <div class="flex justify-between items-start">
-                            <div class="flex items-start gap-4">
-                                <span class="text-3xl bg-gray-50/80 w-12 h-12 flex items-center justify-center rounded-2xl shrink-0">
+                    <div class="group relative flex flex-col p-5 md:p-6 rounded-apple md:rounded-3xl border shadow-[0_2px_10px_-2px_rgba(0,0,0,0.03)] hover:shadow-[0_8px_20px_-4px_rgba(0,0,0,0.06)] transition-all duration-300 active:scale-[0.98] ${bgClass} h-full">
+                        <div class="flex justify-between items-start h-full">
+                            <div class="flex items-start gap-4 md:gap-5">
+                                <span class="text-3xl md:text-4xl bg-gray-50/80 w-12 h-12 md:w-14 md:h-14 flex items-center justify-center rounded-2xl md:rounded-3xl shrink-0">
                                     ${item.icon}
                                 </span>
-                                <div class="pt-0.5">
-                                    <h3 class="text-base font-bold text-anthracite leading-tight mb-1 transition-colors">${item.name}</h3>
+                                <div class="pt-0.5 md:pt-1">
+                                    <h3 class="text-base md:text-lg font-bold text-anthracite leading-tight mb-1 md:mb-2 transition-colors">${item.name}</h3>
                                     ${item.ingredients ? 
-                                        `<p class="text-sm text-gray-400 font-normal leading-relaxed">${item.ingredients}</p>` : 
+                                        `<p class="text-sm md:text-base text-gray-400 font-normal leading-relaxed">${item.ingredients}</p>` : 
                                         ''}
                                 </div>
                             </div>
